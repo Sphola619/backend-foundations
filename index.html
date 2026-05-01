@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Backend Basics by Sipho</title>
+</head>
+<body>
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Backend Basics by Sipho</title>
+
+  <!-- Link CSS -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+<header>
+  <h1>Backend Basics</h1>
+  <p>Learning backend development from the ground up</p>
+</header>
+
+<section>
+
+  <!-- INTRO -->
+  <div class="card">
+    <h2>👋 About Me</h2>
+    <p>
+      Hi, I’m Sipho. I’m a developer who’s been learning backend development,
+      and like a lot of people starting out, I realized something...
+    </p>
+    <p>
+      A lot of tutorials show you *what* to do, but don’t really explain *why* things work.
+    </p>
+    <p>
+      I decided to start this series to help entry-level developers understand the fundamentals properly. 
+      I focus on explaining concepts in a simple and relatable way using analogies, because I believe 
+      coding shouldn’t feel complicated or intimidating. As Einstein said, 
+      <em>
+        "If you can't explain it simply, you don't understand it well enough."
+      </em>
+    <p>
+      I also want to emphasize that I'm no expert, and I'm learning as I go, and as I continue to learn, I will update this series with new insights and improvements. 
+    </p>
+    <p>
+      Also, I believe teaching helps me learn better too.
+    </p>  
+    </p>
+  </div>
+
+  <!-- WHAT IS BACKEND -->
+  <div class="card">
+    <h2>🧠 What is the Backend?</h2>
+    <p>
+      Think of an app like a restaurant:
+    </p>
+    <ul>
+      <li>Frontend = the menu and waiter (what you see)</li>
+      <li>Backend = the kitchen (where the real work happens)</li>
+    </ul>
+    <p>
+      The backend is responsible for:
+    </p>
+    <ul>
+      <li>Storing data (like users)</li>
+      <li>Processing requests from clients</li>
+      <li>Sending responses back to clients</li>
+    </ul>
+
+    <p><strong>Example:</strong></p>
+
+    <p>
+      Imagine you open an app and click a button that says <em>"View Users"</em>.
+    </p>
+
+    <ul>
+      <li>The frontend sends a request to the backend (server)</li>
+      <li>The backend receives the request</li>
+      <li>The backend looks in the database for users</li>
+      <li>The backend sends the user data back to the frontend</li>
+      <li>The frontend displays the users on your screen</li>
+    </ul>
+
+    <p>
+      So even though you only clicked a button, a lot of things happened behind the scenes.
+      That’s the backend doing its job.
+    </p>
+    <p>
+      Now you may be asking, "What is a server?", and this is very important as the server is a crucial part of the backend. A server is responsible for handling client requests and responses.
+    </p>
+    <p>
+      The technical definition of a server is a system (hardware or software) that listens for incoming network requests and provides responses to clients over a network.
+    </p>
+    <p>
+      I like to think of a server as "someone" who "serves" responses to the client based on the client's request. So when you click the "View Users" button, the server is the one who processes that request and sends back the user data to the frontend.
+    </p>
+  </div>
+
+  <!-- HTTP METHODS -->
+  <div class="card">
+    <h2>🌐 What are HTTP Methods?</h2>
+
+    <p>
+      When your app talks to a server, it sends a request.
+      HTTP methods tell the server <strong>what you want to do</strong>.
+    </p>
+
+    <ul>
+      <li><strong>GET</strong> → Get data (e.g. fetching a list of users from the database)</li>
+      <li><strong>POST</strong> → Create data (e.g. adding a new user to the database)</li>
+      <li><strong>PUT</strong> → Update data (e.g. modifying an existing user's information)</li>
+      <li><strong>DELETE</strong> → Remove data (e.g. deleting a user from the database)</li>
+    </ul>
+
+    <p>
+      Think of it like:
+    </p>
+    <ul>
+      <li>GET → “Give me my data”</li>
+      <li>POST → “Create something new”</li>
+      <li>PUT → “Update this”</li>
+      <li>DELETE → “Remove this”</li>
+    </ul>
+  </div>
+
+  <!-- INTERACTIVE DEMO -->
+  <div class="card">
+    <h2>🧪 Try It (Simulation)</h2>
+
+    <button onclick="simulateRequest('GET')">GET Users</button>
+    <button onclick="simulateRequest('POST')">POST User</button>
+    <button onclick="simulateRequest('PUT')">PUT User</button>
+    <button onclick="simulateRequest('DELETE')">DELETE User</button>
+
+    <pre id="output">Click a button to see what happens...</pre>
+
+    <p>
+      These responses are shown in JSON format. While there are other response formats,
+      we will focus on JSON since it is the most commonly used in modern web applications.
+    </p>
+  </div>
+
+  <!-- API EXPLANATION -->
+  <div class="card">
+    <h2>🔍 What is an API?</h2>
+
+    <p>
+      Now... it took me a while to understand what an API is, and it wasn't until I started building projects that I really grasped the concept. So let's break it down.
+    </p>
+
+    <p>
+      An API (Application Programming Interface) is a set of rules that allows different software applications to communicate with each other. In the context of web development, APIs allow the frontend and backend to interact. It is the "defined behaviour" of the server that the frontend can use to request data or perform actions.
+    </p>
+
+    <p>
+      When you click a button on the frontend, it sends an HTTP request to the backend's API. The API defines how the frontend can request data and what kind of responses it can expect from the backend.
+    </p>
+
+    <p><strong>Simple analogy:</strong></p>
+
+    <p>
+      Think of an API like a restaurant system:
+    </p>
+
+    <ul>
+      <li>You (frontend) look at the menu</li>
+      <li>The menu represents the available API endpoints (like /users or /login)</li>
+      <li>You place an order using something on the menu</li>
+      <li>The waiter (API) takes your order to the kitchen</li>
+      <li>The kitchen (backend logic) prepares the food</li>
+      <li>The waiter brings the response back to you</li>
+    </ul>
+
+    <p>
+      The menu shows what is available, the API handles the communication,
+      and the backend does the actual work.
+    </p>
+
+    <p>
+      The waiter doesn’t cook the food — they just carry requests and responses between you and the kitchen.
+    </p>
+
+    <p>
+      I like to think of an API as a set of rules that live on the server, which dictate how the server should behave in terms of handling requests and responses through an API endpoint URL.
+    </p>
+
+    <p><strong>Example:</strong></p>
+    
+    <p>
+       So when you click the <em>"View Users"</em> button, the frontend sends a request to the API endpoint URL (e.g. /api/users), and the API defines how the server should respond to that request (e.g. by fetching user data from the database and sending it back in JSON format).
+    </p>
+  </div>
+
+  <!-- API URL ENPOINTS -->
+  <div class="card">
+  <h2>🔗 What is an API Endpoint URL?</h2>
+
+  <p>
+    An API endpoint URL is a specific <strong>address</strong> on the server that you can send a request to.
+    Each endpoint represents a specific action, like getting users or creating a new account.
+  </p>
+
+  <p><strong>Example:</strong></p>
+
+  <pre>
+GET http://localhost:8000/users
+  </pre>
+
+  <ul>
+    <li><strong>GET</strong> → the HTTP method (what you want to do)</li>
+    <li><strong>http://localhost:8000</strong> → the server or the server's address (where the server is located)</li>
+    <li><strong>/users</strong> → the endpoint (what you're accessing)</li>
+  </ul>
+
+  <p>
+    When this request is sent, the server looks for the <code>/users</code> endpoint,
+    processes the request, and sends back a response (usually in JSON format).
+  </p>
+
+  <p><strong>Connecting back to our analogy:</strong></p>
+
+  <p>
+    If the API is like a restaurant:
+  </p>
+
+  <ul>
+    <li>The base URL (http://localhost:8000) is the restaurant</li>
+    <li>The endpoint (/users) is an item on the menu</li>
+    <li>The HTTP method (GET, POST, etc.) is what you're asking to do with that item</li>
+  </ul>
+</div>
+
+<div class="card">
+  <h2>Alright, let’s build our first API endpoint.</h2>
+
+  <p>
+    Now that we understand the basics, let's get our hands dirty and build a simple API endpoint using Python and FastAPI. This will be a very basic example to help us understand how to create an API endpoint and test it.
+  </p>
+
+  <p><strong>Step 1: Open your code editor</strong></p>
+
+  <p>
+    Open your code editor (like VS Code), and create a new folder for your project.
+  </p>
+
+  <p>
+    For example:
+  </p>
+
+  <pre>
+backend-basics
+  </pre>
+
+  <p><strong>Step 2: Open a terminal</strong></p>
+
+  <p>
+    Open a terminal inside your project folder.
+  </p>
+
+  <p><strong>Step 3: Install the required packages</strong></p>
+
+  <p>
+    Make sure you have <a href="https://www.python.org/downloads/">Python</a> installed. Then run:
+  </p>
+
+  <pre>
+python -m pip install fastapi uvicorn
+  </pre>
+
+  <p>
+    These tools will allow us to build and run our backend server.
+  </p>
+
+  <p>
+    <strong>FastAPI</strong> is a backend framework. A framework is basically a set of tools that
+    helps you build something faster instead of starting from scratch.
+  </p>
+
+  <p>
+    Think of it like setting up a lemonade stand. Instead of building the table, cups,
+    and signs yourself, FastAPI gives you those pieces already prepared, while you just
+    focus on serving the lemonade.
+  </p>
+
+  <p>
+    <strong>Uvicorn</strong> is the server that runs your application. It listens for requests
+    (like someone placing an order) and makes sure your FastAPI app responds to them.
+  </p>
+
+  <p>
+    So:
+  </p>
+
+  <ul>
+    <li>FastAPI → builds your API</li>
+    <li>Uvicorn → runs your server and handles requests</li>
+  </ul>
+
+  <p><strong>Step 4: Create your server file</strong></p>
+
+  <p>
+    Inside your folder, create a file called:
+  </p>
+
+  <pre>
+main.py
+  </pre>
+
+  <p>
+    This file will contain your backend code.
+  </p>
+
+  <p><strong>Step 5: Add your first endpoint</strong></p>
+
+  <pre class="code-block">
+    <code>
+    <span class="comment"># Import FastAPI (the framework we are using)</span>
+    from fastapi import FastAPI
+
+    <span class="comment"># Create an instance of the FastAPI application</span>
+    <span class="comment"># Think of this as setting up your backend app</span>
+    app = FastAPI()
+
+    <span class="comment"># Define a GET endpoint at /users</span>
+    <span class="comment"># This means when someone sends a GET request to /users, this function will run</span>
+    @app.get("/users")
+
+    <span class="comment"># This is the function that will execute when the endpoint is called</span>
+    def get_users():
+    
+    <span class="comment"># Return a list of users</span>
+    <span class="comment"># FastAPI automatically converts this into JSON format</span>
+    return ["Sipho", "John", "Sarah"]
+    </code>
+  </pre>
+
+  <p>
+    This creates a simple API endpoint at <code>/users</code>.
+  </p>
+
+  <p><strong>Step 6: Run the server</strong></p>
+
+  <p>
+    In your terminal, run:
+  </p>
+
+  <pre>
+uvicorn main:app --reload
+  </pre>
+
+  <p>
+    This starts your server locally.
+  </p>
+
+  <p>
+    Notice that it's running on port 8000 which is the default port for Uvicorn. We can change this if we want, but for now, we'll stick with 8000.
+  </p>
+
+  <p><strong>Step 7: Test your endpoint in the browser</strong></p>
+
+  <p>
+    First, in your browser, go to:
+  </p>
+
+  <pre>
+  http://localhost:8000/users
+  </pre>
+
+  <p>
+    You should see a response like:
+  </p>
+
+  <pre>
+  ["Sipho", "John", "Sarah"]
+  </pre>
+
+  <p>
+    This means your server is running and your endpoint is working correctly.
+  </p>
+
+  <p><strong>Step 8: Explore your API with Swagger</strong></p>
+
+  <p>
+    Now go to:
+  </p>
+
+  <pre>
+  http://localhost:8000/docs
+  </pre>
+
+  <p>
+    This opens an interactive API interface called <strong>Swagger UI</strong>.
+  </p>
+
+  <p>
+    Swagger allows you to see all your available endpoints and test them directly from your browser
+    without writing any code. Quite handy for testing and debugging your API.
+  </p>
+
+  <p>
+    Find <strong>GET /users</strong>, click on it, and then click <em>Execute</em>.
+  </p>
+
+  <p>
+    You’ll see the same response returned by your server.
+  </p>
+  <br><br>
+  <p>
+    We've now built and tested our first real backend endpoint 🎉
+  </p>
+</div>
+
+<div class="card">
+  <h2>📨 Sending/Creating Data with POST</h2>
+
+  <p>
+    So far, we’ve used GET requests to retrieve data.
+  </p>
+
+  <p>
+    Now, let’s learn how to send data to the server using a POST request.
+  </p>
+
+  <p>
+    POST is commonly used when creating something new, like a user account.
+  </p>
+
+  <p><strong> Step 1: Add this to your existing code </strong></p>
+
+  <pre class="code-block">
+    <code>
+      <span class="comment"># Now we Import BaseModel from the Pydantic library</span>
+      from fastapi import FastAPI
+      from pydantic import BaseModel
+
+      app = FastAPI()
+
+      <span class="comment"># Define the structure of the data we expect</span>
+      class User(BaseModel):
+          name: str
+
+      <span class="comment"># Create a POST endpoint</span>
+      @app.post("/users")
+      def create_user(user: User):
+          return {
+              "message": "User created successfully",
+              "user": user.name
+          }
+    </code>
+
+  </pre>
+
+  <p>
+    Pydantic is a Python data validation library. We use BaseModel from Pydantic which is a declarative schema which allows us to define how our data should look like. Pydantic validates we input against this schema and ensures that the data we receive is in the correct format.
+  </p>
+
+  <p><strong>What’s happening here?</strong></p>
+
+  <ul>
+    <li><strong>POST /users</strong> → creates a new user</li>
+    <li><strong>User(BaseModel)</strong> → defines the data structure</li>
+    <li><strong>user: User</strong> → receives data from the request body</li>
+  </ul>
+
+  <p><strong>Step 2: Test it using Swagger</strong></p>
+
+  <p>
+    Go to:
+  </p>
+
+  <pre>
+http://localhost:8000/docs
+  </pre>
+
+  <p>
+    Find <strong>POST /users</strong> and click on it.
+  </p>
+
+  <p>
+    Click <strong>"Try it out"</strong>, then enter:
+  </p>
+
+  <pre>
+{
+  "name": "Sipho"
+}
+  </pre>
+
+  <p>
+    Click <strong>Execute</strong>.
+  </p>
+
+  <p>
+    You should see a response like:
+  </p>
+
+  <pre>
+{
+  "message": "User created successfully",
+  "user": "Sipho"
+}
+  </pre>
+
+  <p><strong>What just happened?</strong></p>
+
+  <ul>
+    <li>You sent data to the server</li>
+    <li>The server received and processed it</li>
+    <li>The server sent a response back</li>
+  </ul>
+
+  <p>
+    This is how forms, sign-ups, and logins work in real applications.
+  </p>
+
+  <p>
+    You may notice that when you go to <code>http://localhost:8000</code> in your browser,
+    you see a message like:
+  </p>
+
+  <pre>
+  {"detail": "Not Found"}
+  </pre>
+
+  <p>
+    This is because we haven’t defined an endpoint for the root URL (<code>/</code>).
+  </p>
+
+  <p>
+    Our current endpoint is:
+  </p>
+
+  <pre>
+  /users
+  </pre>
+
+  <p>
+    So the correct address to use is:
+  </p>
+
+  <pre>
+  http://localhost:8000/users
+  </pre>
+
+  <p>
+    In backend development, the server only responds to routes (endpoints) that you have explicitly defined.
+  </p>
+
+  <p>
+    We can also add the root endpoint in our existing code <code>/</code> so that it works:
+  </p>
+
+  <pre>
+  @app.get("/")
+  def root():
+      return {"message": "API is running"}
+  </pre>
+
+  <p><strong>Now our <code>main.py</code> file should look like this:</strong></p>
+
+  <pre class="code-block"><code>
+    <span class="comment"># Import FastAPI (framework for building our API)</span>
+    from fastapi import FastAPI
+
+    <span class="comment"># Import BaseModel from Pydantic (used to define data structure)</span>
+    from pydantic import BaseModel
+
+
+    <span class="comment"># Create an instance of the FastAPI app (this is our server)</span>
+    app = FastAPI()
+
+
+    <span class="comment"># Define a GET endpoint at /users</span>
+    <span class="comment"># This runs when someone visits http://localhost:8000/users</span>
+    @app.get("/users")
+    def get_users():
+        <span class="comment"># Return a list of users (automatically converted to JSON)</span>
+        return ["Sipho", "John", "Sarah"]
+
+
+    <span class="comment"># Define the structure of the data we expect when creating a user</span>
+    class User(BaseModel):
+        <span class="comment"># The user must have a name, and it must be a string</span>
+        name: str
+
+
+    <span class="comment"># Define a POST endpoint at /users</span>
+    <span class="comment"># This runs when data is sent to the server to create a user</span>
+    @app.post("/users")
+    def create_user(user: User):
+        <span class="comment"># Return a confirmation message and the user's name</span>
+        return {
+            "message": "User created successfully",
+            "user": user.name
+        }
+
+
+    <span class="comment"># Define a root endpoint at /</span>
+    <span class="comment"># This runs when someone visits http://localhost:8000</span>
+    @app.get("/")
+    def root():
+        <span class="comment"># Simple message to show the API is running</span>
+        return {"message": "API is running"}
+    </code>
+  </pre>
+</div>
+
+<div class="card">
+  <h2>💾 Storing Data Temporarily</h2>
+
+  <p>
+    Right now, our API can receive data, but it doesn’t actually store anything.
+  </p>
+
+  <p>
+    If we create a user and then check our users again, nothing changes.
+    That’s because we are not saving the data anywhere.
+  </p>
+
+  <p><strong>Let’s fix that.</strong></p>
+
+  <p>
+    We will store users temporarily in memory using a list.
+  </p>
+
+  <p><strong>Step 1: Create a users list</strong></p>
+
+  <pre>
+# Temporary storage (in-memory)
+users = []
+  </pre>
+
+  <p>
+    Also remove ["Sipho", "John", "Sarah"] from the GET /users endpoint and so we can start with an empty list.
+  </p>
+
+  <p>
+    This list will hold all users while the server is running.
+  </p>
+
+  <p><strong>Step 2: Update your endpoints</strong></p>
+
+  <pre>
+    from fastapi import FastAPI
+    from pydantic import BaseModel
+
+    app = FastAPI()
+
+    # Temporary storage
+    users = []
+
+    # Define data structure
+    class User(BaseModel):
+        name: str
+
+    # GET all users
+    @app.get("/users")
+    def get_users():
+        return users
+
+    # POST create user
+    @app.post("/users")
+    def create_user(user: User):
+        users.append(user.name)  # Add user to the list
+        return {
+            "message": "User created successfully",
+            "users": users
+        }
+
+    # Root endpoint
+    @app.get("/")
+    def root():
+        return {"message": "API is running"}
+  </pre>
+
+  <p><strong>What’s happening now?</strong></p>
+
+  <ul>
+    <li>We created a list called <code>users</code></li>
+    <li>Every time we create a user, we add it to the list</li>
+    <li>GET /users now returns real data that changes</li>
+  </ul>
+
+  <p><strong>Try it out:</strong></p>
+
+  <ul>
+    <li>Create a user using <strong>POST /users</strong> endpoint in Swagger UI</li>
+    <li>Then call <strong>GET /users</strong></li>
+    <li>You’ll see the new user in the list</li>
+  </ul>
+
+  <p>
+    🎉 Our API can now store and return data!
+  </p>
+
+  <h2>⚠️ Important Limitation</h2>
+
+  <p>
+    This data is only stored temporarily in memory.
+  </p>
+
+  <p>
+    If you restart your server, all the users will be lost.
+  </p>
+
+  <p>
+    Try it:
+  </p>
+
+  <ul>
+    <li>Stop your server</li>
+    <li>Start it again</li>
+    <li>Call <strong>GET /users</strong></li>
+  </ul>
+
+  <p>
+    The list will be empty again.
+  </p>
+
+  <p>
+    This is why real applications use databases — to store data permanently.
+  </p>
+
+  <p><strong>Why does this happen?</strong></p>
+
+  <p>
+    Because our data is stored in memory (RAM), not permanently.
+  </p>
+
+  <p>
+    When the server stops, everything in memory is cleared.
+  </p>
+
+  <p><strong>What this means:</strong></p>
+
+  <ul>
+    <li>Data is not saved permanently</li>
+    <li>All users are lost when the server restarts</li>
+  </ul>
+
+  <p>
+    This is why real applications use databases — to store data permanently.
+  </p>
+</div>
+
+<div class="card">
+  <h2>🐘 Introducing PostgreSQL</h2>
+
+  <p>
+    There are many different database systems available, but we will use <strong>PostgreSQL</strong>.
+  </p>
+
+  <p>
+    PostgreSQL is a powerful and widely used open-source relational database management system.
+  </p>
+
+  <p>
+    It is used by many real-world applications to store and manage data reliably.
+  </p>
+
+  <p><strong>What PostgreSQL will help us do:</strong></p>
+
+  <ul>
+    <li>Store users permanently</li>
+    <li>Retrieve users when needed</li>
+    <li>Build real-world backend systems</li>
+  </ul>
+
+  <p>
+    Instead of storing users in a temporary list, we will store them in a database.
+  </p>
+
+  <p>
+    This means even if we restart the server, our data will still be there.
+  </p>
+</div>
+
+<div class="card">
+  <h2>🐘 Installing PostgreSQL</h2>
+
+  <p>
+    To store our data permanently, we need to install a database system.
+  </p>
+
+  <p>
+    We’ll be using <strong>PostgreSQL</strong>.
+  </p>
+
+  <p>
+    You can download it here:
+  </p>
+
+  <p>
+    <a href="https://www.postgresql.org/download/" target="_blank" rel="noopener noreferrer">
+      Download PostgreSQL
+    </a>
+  </p>
+
+  <p>
+    Follow the installation instructions for your operating system.
+  </p>
+
+  <p>
+    During installation, you may be asked to set a password — make sure you remember it.
+  </p>
+
+  <p>
+    Once installed, PostgreSQL will run on your computer and be ready to store data.
+  </p>
+</div>
+
+<div class="card">
+  <h2>🔌 Connecting FastAPI to PostgreSQL</h2>
+
+  <p>
+    Now that PostgreSQL is installed, we need to connect our FastAPI application to it.
+  </p>
+
+  <p><strong>Step 1: Install the required package in the terminal</strong></p>
+
+  <pre>
+python -m pip install psycopg2-binary
+  </pre>
+
+  <p>
+    This allows Python to communicate with PostgreSQL.
+  </p>
+
+  <p><strong>Step 2: Connect to the database</strong></p>
+
+  <p>
+    In your <code>database.py</code> file, add the following code to connect to PostgreSQL:
+  </p>
+
+  <pre>
+import psycopg2
+
+# Create a connection to PostgreSQL
+conn = psycopg2.connect(
+    host="localhost",
+    database="postgres",
+    user="postgres",
+    password="your_password"
+)
+
+# Create a cursor (used to run queries)
+cursor = conn.cursor()
+  </pre>
+
+  <p><strong>What’s happening here?</strong></p>
+
+  <ul>
+    <li><strong>conn</strong> → connects your app to the database</li>
+    <li><strong>cursor</strong> → lets you run commands (queries)</li>
+  </ul>
+
+  <p>
+    Think of the connection as opening a line of communication,
+    and the cursor as the tool you use to send instructions.
+  </p>
+</div>
+
+<div class="card">
+  <h2>🔗 Using the Database in Our API</h2>
+
+  <p>
+    We add this line in our <code>main.py</code> to import the database connection and cursor:
+  </p>
+
+  <pre>
+from database import cursor, conn
+  </pre>
+
+  <p>
+    This is important because it allows our FastAPI application to communicate with the database.
+  </p>
+
+  <p>
+    The <code>conn</code> (connection) represents the link between our app and PostgreSQL,
+    and the <code>cursor</code> is what we use to send commands (queries) to the database.
+  </p>
+
+  <p>
+    Without this, our API would not be able to store or retrieve any data.
+  </p>
+
+  <h3>📨 POST /users (Create a user)</h3>
+
+  <p>
+    This endpoint allows us to send data to the server and store it in the database.
+  </p>
+
+  <p>
+    When we send a user's name, the API runs an SQL command to insert that data into the <code>users</code> table.
+  </p>
+
+  <h3>📥 GET /users (Retrieve users)</h3>
+
+  <p>
+    This endpoint retrieves all users from the database.
+  </p>
+
+  <p>
+    It runs a query to select all records from the <code>users</code> table and returns them.
+  </p>
+
+  <h3>🧾 Updated main.py</h3>
+
+  <pre class="code-block"><code>
+<span class="comment"># Import FastAPI (framework for building our API)</span>
+from fastapi import FastAPI
+
+<span class="comment"># Import BaseModel (used to define the structure of incoming data)</span>
+from pydantic import BaseModel
+
+<span class="comment"># Import database connection and cursor</span>
+from database import cursor, conn
+
+
+<span class="comment"># Create FastAPI app instance</span>
+app = FastAPI()
+
+
+<span class="comment"># Define the structure of the data we expect when creating a user</span>
+class User(BaseModel):
+    <span class="comment"># User must have a name (string)</span>
+    name: str
+
+
+<span class="comment"># POST endpoint → creates a new user in the database</span>
+@app.post("/users")
+def create_user(user: User):
+    <span class="comment"># Insert the user's name into the users table</span>
+    cursor.execute(
+        "INSERT INTO users (name) VALUES (%s)",
+        (user.name,)
+    )
+
+    <span class="comment"># Save (commit) the changes to the database</span>
+    conn.commit()
+
+    <span class="comment"># Return a confirmation response</span>
+    return {
+        "message": "User created successfully",
+        "user": user.name
+    }
+
+
+<span class="comment"># GET endpoint → retrieves all users from the database</span>
+@app.get("/users")
+def get_users():
+    <span class="comment"># Run a query to get all users</span>
+    cursor.execute("SELECT * FROM users")
+
+    <span class="comment"># Fetch all results from the query</span>
+    users = cursor.fetchall()
+
+    <span class="comment"># Return the users</span>
+    return users
+
+
+<span class="comment"># Root endpoint → simple check to confirm API is running</span>
+@app.get("/")
+def root():
+    return {"message": "API is running"}
+</code></pre>
+
+  <h3>🧪 Try it out</h3>
+
+  <p>
+    Start your server and go to:
+  </p>
+
+  <pre>
+http://localhost:8000/docs
+  </pre>
+
+  <p>
+    1. Use <strong>POST /users</strong> to create a new user:
+  </p>
+
+  <pre>
+{
+  "name": "John"
+}
+  </pre>
+
+  <p>
+    2. Then use <strong>GET /users</strong> to retrieve all users.
+  </p>
+
+  <p>
+    You should now see your data coming from the database.
+  </p>
+
+  <h3>🔍 View your data in PostgreSQL</h3>
+
+  <p>
+    You can also verify your data directly in the database.
+  </p>
+
+  <p>
+    In your terminal (psql), run:
+  </p>
+
+  <pre>
+SELECT * FROM users;
+  </pre>
+
+  <p>
+    You should see the users you added.
+  </p>
+
+  <p>
+    This confirms that your data is being stored in PostgreSQL.
+  </p>
+
+  <hr>
+
+  <p>
+    We have now connected our FastAPI application to a real database.
+  </p>
+
+  <p>
+    When we send a POST request, the data is inserted into the database.
+    When we send a GET request, the data is retrieved from the database.
+  </p>
+
+  <p>
+    This means our data is now stored permanently and will not disappear
+    when the server restarts.
+  </p>
+
+  <p>
+    Previously, we stored data in a list (temporary storage).
+    Now, we store data in a database (permanent storage).
+  </p>
+</div>
+</section>
+
+<!-- Link JS -->
+<script src="script.js"></script>
+
+</body>
+</html>
