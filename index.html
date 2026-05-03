@@ -1398,6 +1398,159 @@ SELECT * FROM users;
     This will involve checking if the user exists in the database and verifying that their password matches the stored hashed password.
   </p>
 </div>
+
+<div class="card">
+  <h2>🔑 Building Authentication</h2>
+
+  <p>
+    In simple terms, authentication answers the question:
+    “Is this user who they say they are?”
+  </p>
+
+  <p>
+    It's like entering a football stadium and getting your ticket scanned or checked to see if it's valid. If the ticket is valid, you are allowed in; if not, you are denied entry.
+  </p>
+
+  <h3>🧠 Step 1: What do we need?</h3>
+
+  <p>
+    To authenticate a user, we need two things:
+  </p>
+
+  <ul>
+    <li>A unique identifier (email)</li>
+    <li>A secret (password)</li>
+  </ul>
+
+  <p>
+    The email helps us find the user in the database, and the password helps us verify that it is really them.
+  </p>
+
+  <h3>📦 Step 2: Create a Login Model</h3>
+
+  <p>
+    When a user logs in, they don’t need to send their name — only their email and password.
+  </p>
+
+  <pre>
+class LoginUser(BaseModel):
+    email: str
+    password: str
+  </pre>
+
+  <h3>🚪 Step 3: Create the Login Endpoint</h3>
+
+  <p>
+    Now we create a <strong>POST /login</strong> endpoint that will handle login requests.
+  </p>
+
+  <pre>
+@app.post("/login")
+def login(user: LoginUser):
+
+    # Find user by email
+    cursor.execute(
+        "SELECT * FROM users WHERE email = %s",
+        (user.email,)
+    )
+    db_user = cursor.fetchone()
+
+    # If user does not exist
+    if not db_user:
+        return {"error": "User not found"}
+
+    # Get stored hashed password
+    stored_password = db_user[3]
+
+    # Verify password
+    if not pwd_context.verify(user.password, stored_password):
+        return {"error": "Invalid password"}
+
+    # If everything is correct
+    return {"message": "Login successful"}
+  </pre>
+
+  <h3>🧠 What’s happening here?</h3>
+
+  <p>
+    First, we check if a user with that email exists in the database.
+  </p>
+
+  <p>
+    If the user exists, we compare the password they entered with the hashed password stored in the database.
+  </p>
+
+  <p>
+    If they match, the user is authenticated.
+  </p>
+
+  <h3>🧪 Step 4: Test in Swagger</h3>
+
+  <p>
+    Go to:
+  </p>
+
+  <pre>
+http://localhost:8000/docs
+  </pre>
+
+  <p>
+    Use <strong>POST /login</strong> and enter:
+  </p>
+
+  <pre>
+{
+  "email": "john@email.com",
+  "password": "your_original_password"
+}
+  </pre>
+
+  <p>
+    If the credentials are correct, you will receive a success response.
+  </p>
+
+  <pre>
+{
+  "message": "Login successful"
+}
+  </pre>
+
+  <p>
+    If not, you will receive an error message.
+  </p>
+
+  <h3>⚠️ Important</h3>
+
+  <p>
+    Notice that we never compare plain passwords directly.
+  </p>
+
+  <p>
+    Instead, we use <code>pwd_context.verify()</code> to safely compare the entered password with the stored hashed password.
+  </p>
+
+  <hr>
+
+  <p>
+    We have now built an operating authentication system 🎉
+  </p>
+
+  <p>
+    The application can verify users and allow access only if their credentials are correct.
+  </p>
+
+  <p>
+    However, there is one problem…
+  </p>
+
+  <p>
+    Once the user logs in, the application does not remember them.
+  </p>
+
+  <p>
+    In the next section, we will solve this by introducing tokens and sessions.
+  </p>
+</div>
 </section>
 
 <!-- Link JS -->
