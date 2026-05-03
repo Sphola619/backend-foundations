@@ -861,6 +861,30 @@ cursor = conn.cursor()
     Think of the connection as opening a line of communication,
     and the cursor as the tool you use to send instructions.
   </p>
+
+  <p>
+    You will also need to connect to the database using the terminal (psql) to create a table for storing users. Run the following command:
+  </p>
+
+  <pre>
+"C:\Program Files\PostgreSQL\18\bin\psql.exe" -U postgres
+  </pre>
+
+  <p>
+    You will then be prompted to enter your password.
+  </p>
+
+  <p>
+    If successful, you will see:
+  </p>
+
+  <pre>
+postgres=#
+  </pre>
+
+  <p>
+    This means you are connected to PostgreSQL and will be able to run SQL commands to create tables and manage your data.
+  </p>
 </div>
 
 <div class="card">
@@ -1037,6 +1061,341 @@ SELECT * FROM users;
   <p>
     Previously, we stored data in a list (temporary storage).
     Now, we store data in a database (permanent storage).
+  </p>
+</div>
+
+<div class="card">
+  <h2>🔐 Securing Our Database Credentials</h2>
+
+  <p>
+    We've connected to our database and everything is working fine, but there is one more issue we need to resolve before moving on.
+  </p>
+
+  <p>
+    Currently, in our <code>database.py</code> file, we have our PostgreSQL password written directly in the code 😬
+  </p>
+
+  <p>
+    This is a security risk, because anyone who has access to your code can see your database credentials and potentially access your data.
+  </p>
+
+  <p>
+    Thankfully, we can solve this using <strong>environment variables</strong> (a <code>.env</code> file).
+  </p>
+
+  <p>
+    This allows us to store sensitive information like passwords outside of our code.
+  </p>
+
+  <h3>📦 Step 1: Install dotenv</h3>
+
+  <pre>
+python -m pip install python-dotenv
+  </pre>
+
+  <p>
+    This package allows us to load environment variables from a <code>.env</code> file.
+  </p>
+
+  <h3>📄 Step 2: Create a .env file</h3>
+
+  <p>
+    In your project folder, create a file called <code>.env</code> and add:
+  </p>
+
+  <pre>
+DB_HOST=localhost
+DB_NAME=postgres
+DB_USER=postgres
+DB_PASSWORD=your_password
+  </pre>
+
+  <h3>🧠 Step 3: Update database.py</h3>
+
+  <pre class="code-block"><code>
+<span class="comment"># Import required libraries</span>
+import psycopg2
+import os
+from dotenv import load_dotenv
+
+<span class="comment"># Load environment variables from .env file</span>
+load_dotenv()
+
+<span class="comment"># Connect using environment variables</span>
+conn = psycopg2.connect(
+    host=os.getenv("DB_HOST"),
+    database=os.getenv("DB_NAME"),
+    user=os.getenv("DB_USER"),
+    password=os.getenv("DB_PASSWORD")
+)
+
+<span class="comment"># Create a cursor</span>
+cursor = conn.cursor()
+</code></pre>
+
+  <h3>🤔 What is <code>os</code>?</h3>
+
+  <p>
+    The <code>os</code> module is a built-in Python library that allows us to interact with our system.
+  </p>
+
+  <p>
+    In this case, we use <code>os.getenv()</code> to read values from our environment variables.
+  </p>
+
+  <p>
+    For example:
+  </p>
+
+  <pre>
+os.getenv("DB_PASSWORD")
+  </pre>
+
+  <p>
+    This retrieves the database password from the <code>.env</code> file instead of hardcoding it in our code.
+  </p>
+
+  <h3>⚠️ Important</h3>
+
+  <p>
+    Make sure you add <code>.env</code> to your <code>.gitignore</code> file so your credentials are not uploaded to GitHub.
+  </p>
+
+  <pre>
+.env
+  </pre>
+
+  <p>
+    Our code is now more secure and ready for real-world use.
+  </p>
+</div>
+
+<div class="card">
+  <h2>🔒 Adding User Passwords</h2>
+
+  <p>
+    So far, we have only stored user names in our database. But in a real application, we would also want to store passwords so users can securely log in.
+  </p>
+
+  <h3>🧠 Step 1: Update the BaseModel</h3>
+
+  <p>
+    We need to update our <code>User</code> model to include an email and password.
+  </p>
+
+  <pre>
+class User(BaseModel):
+    name: str
+    email: str
+    password: str
+  </pre>
+
+  <p>
+    We include email because it is unique for each user and will be used for logging in. Users can have the same name, but they cannot have the same email.
+  </p>
+
+  <h3>🗄️ Step 2: Update the database table</h3>
+
+  <p>
+    Our <code>users</code> table currently only stores names. We need to add email and password fields.
+  </p>
+
+  <p>
+    In your PostgreSQL terminal, run:
+  </p>
+
+  <pre>
+ALTER TABLE users
+ADD COLUMN email TEXT,
+ADD COLUMN password TEXT;
+  </pre>
+
+  <p>
+    Then run SELECT * FROM users; to see the updated table structure. You should now see new empty columns for email and password.
+  </p>
+
+  <h3>📦 Step 3: Install password hashing</h3>
+
+  <p>
+    We should never store passwords as plain text. Instead, we use hashing. Run the following command to install the necessary library for hashing passwords:
+  </p>
+
+  <pre>
+python -m pip install passlib[bcrypt]
+  </pre>
+
+  <p>
+    Passlib is a library that provides secure password hashing. The [bcrypt] part specifies that we want to use the bcrypt hashing algorithm, which is widely regarded as secure for password hashing.
+
+    If a user enters 123456 the hashed password will look something like this:
+  </p>
+
+  <pre>
+$2b$12$KIXQJHj8u1r5Z55u1e7uO8z5y5v5u1e7uO8z5y5v5u1e7uO8z5y5v
+  </pre>
+  <p>
+    This is what will be stored in the database, and every time the user tries to log in. Passlib will hash the entered password and compare it to the stored hash to verify if they match.
+  </p>
+
+  <p>
+    This installs a library that helps us securely hash passwords.
+  </p>
+
+  <h3>⚠️ Important Note (Compatibility)</h3>
+
+  <p>
+    You may encounter errors when using <code>passlib</code> with certain Python versions.
+  </p>
+
+  <p>
+    For example, newer versions of <code>bcrypt</code> may not be fully compatible with <code>passlib</code>, which can cause unexpected errors during hashing.
+  </p>
+
+  <p>
+    To resolve this, install a stable version:
+  </p>
+
+  <pre>
+python -m pip install bcrypt==4.0.1 passlib[bcrypt]==1.7.4
+  </pre>
+
+  <p>
+    This ensures compatibility and prevents hashing errors.
+  </p>
+
+  <h3>🔐 Step 4: Set up password hashing</h3>
+
+  <p>
+    In your <code>main.py</code>, add:
+  </p>
+
+  <pre>
+from passlib.context import CryptContext
+
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+  </pre>
+
+  <p>
+    pwd_context is an object that provides methods for hashing and verifying passwords using the bcrypt algorithm.
+  </p>
+  <p>
+    Simply put, <code>pwd_context</code> allows us to easily hash passwords before storing them and to verify passwords during login without having to worry about the underlying hashing logic.
+  </p>
+
+  <h3>⚙️ Step 5: Update the POST endpoint</h3>
+
+  <p>
+    Before saving the password, we hash it.
+  </p>
+
+  <pre>
+@app.post("/users")
+def create_user(user: User):
+
+    # Hash the password before storing it
+    hashed_password = pwd_context.hash(user.password)
+
+    cursor.execute(
+        "INSERT INTO users (name, email, password) VALUES (%s, %s, %s)",
+        (user.name, user.email, hashed_password)
+    )
+    conn.commit()
+
+    return {
+        "message": "User created successfully",
+        "user": user.name
+    }
+  </pre>
+
+  <p>
+    Now, when we create a user, the password is hashed before being stored in the database, as seen by hashed_password. This means that even if someone gains access to our database, they will not see the actual passwords, only the hashed versions, which are not reversible.
+  </p>
+
+  <h3>🧪 Step 6: Test in Swagger</h3>
+
+  <p>
+    Let's start the server by running:
+  </p>
+
+  <pre>
+uvicorn main:app --reload
+  </pre>
+
+  <p>
+    Enter this URL in your browser to access Swagger UI:
+  </p>
+
+  <pre>
+http://localhost:8000/docs
+  </pre>
+
+  <p>
+    Use <strong>POST /users</strong> and send:
+  </p>
+
+  <pre>
+{
+  "name": "john",
+  "email": "john@email.com",
+  "password": "123456"
+}
+  </pre>
+
+  <p>
+    Then use <strong>GET /users</strong> to retrieve all users.
+  </p>
+
+  <p>
+    You should see something like this:
+  </p>
+
+  <pre>
+    [
+      [
+        1,
+        "john",
+        "john@email.com",
+        "$2b$12$KIXQJHj8u1r5Z55u1e7uO8z5y5v5u1e7uO8z5y5v5u1e7uO8z5y5v"
+      ]
+    ]
+  </pre>
+
+  <p>
+    Notice that the password is not stored as "123456", but as a long hashed string. This is how real applications protect user credentials.
+  </p>
+
+  <p>
+    We have the user id, name, email, and the hashed password. Excellent so far. Now we need to see if these credentials are stored in our database correctly.
+  </p>
+
+  <h3>🔍 Step 7: Check your database</h3>
+
+  <p>
+    Connect to your PostgreSQL terminal, and run the following command to view the users table:
+  </p>
+
+  <pre>
+SELECT * FROM users;
+  </pre>
+
+  <p>
+    Now we should see John's id, name, email and <strong>hashed password</strong> in the database. Great! This means our API is successfully storing user credentials in a secure way.
+  </p>
+
+  <p>
+    You will see that the password is not stored as plain text, but as a hashed value.
+  </p>
+
+  <p>
+    This is how real applications protect user credentials.
+  </p>
+
+  <p>
+    Next, we will build authentication, which is the process of verifying a user when they try to log in. 
+  </p>
+
+  <p>
+    This will involve checking if the user exists in the database and verifying that their password matches the stored hashed password.
   </p>
 </div>
 </section>
