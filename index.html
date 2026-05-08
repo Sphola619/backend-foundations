@@ -1551,6 +1551,326 @@ http://localhost:8000/docs
     In the next section, we will solve this by introducing tokens and sessions.
   </p>
 </div>
+
+<div class="card">
+  <h2>🎟️ Tokens & Sessions</h2>
+
+  <p>
+    We have now built an authentication system that can verify users using their email and password.
+  </p>
+
+  <p>
+    But there is still one important problem...
+  </p>
+
+  <p>
+    Once a user logs in successfully, the application immediately forgets them.
+  </p>
+
+  <p>
+    This means the user would have to log in again every time they try to access a protected route.
+  </p>
+
+  <h3>🤔 So how do applications remember users?</h3>
+
+  <p>
+    This is where <strong>tokens</strong> and <strong>sessions</strong> come in.
+  </p>
+
+  <h3>🎟️ What is a token?</h3>
+
+  <p>
+    Think of a token like a wristband at a football stadium or music festival.
+  </p>
+
+  <p>
+    First, your ticket is scanned at the entrance (authentication).
+  </p>
+
+  <p>
+    Once you are verified, you are given a wristband (token).
+  </p>
+
+  <p>
+    Instead of showing your ticket every few minutes, you simply show the wristband to prove you already entered legitimately.
+  </p>
+
+  <p>
+    In web applications, a token works the same way.
+  </p>
+
+  <ul>
+    <li>User logs in successfully</li>
+    <li>The server generates a token</li>
+    <li>The token is sent back to the user</li>
+    <li>The user sends the token with future requests</li>
+    <li>The server verifies the token before allowing access</li>
+  </ul>
+
+  <h3>🧠 What is a session?</h3>
+
+  <p>
+    A session is the period during which the application remembers a logged-in user.
+  </p>
+
+  <p>
+    Think of it like staying inside the stadium after entering.
+  </p>
+
+  <p>
+    As long as your wristband is valid, security allows you to move around without checking your ticket again.
+  </p>
+
+  <p>
+    Once the event ends or the wristband expires, you must authenticate again.
+  </p>
+
+  <h3>⏳ Why do tokens expire?</h3>
+
+  <p>
+    Tokens usually expire after a certain amount of time for security reasons.
+  </p>
+
+  <p>
+    If someone steals a token, they should not be able to use it forever.
+  </p>
+
+  <p>
+    Expiry helps reduce the risk of unauthorized access.
+  </p>
+
+  <h3>🔄 What is a refresh token?</h3>
+
+  <p>
+    Sometimes applications use two tokens:
+  </p>
+
+  <ul>
+    <li><strong>Access Token</strong> → short-lived token used to access protected routes</li>
+    <li><strong>Refresh Token</strong> → used to generate a new access token without forcing the user to log in again</li>
+  </ul>
+
+  <p>
+    Think of it like having:
+  </p>
+
+  <ul>
+    <li>A temporary wristband (access token)</li>
+    <li>A backup pass at customer service that can issue you a new wristband if it expires (refresh token)</li>
+  </ul>
+  <p>
+    Refresh tokens are mostly used for complex apps that have larger security requirements. For simplicity, we will focus on access tokens in this section.
+  </p>
+
+  <h3>📦 Step 1: Install JWT support</h3>
+
+  <p>
+    We will use JSON Web Tokens (JWT) to create and verify tokens.
+  </p>
+
+  <pre>
+python -m pip install python-jose[cryptography]
+  </pre>
+
+  <p>
+    This library allows us to securely generate and verify JWT tokens.
+  </p>
+
+  <h3>📥 Step 2: Import required libraries</h3>
+
+  <p>
+    In <code>main.py</code>, add:
+  </p>
+
+  <pre>
+from jose import JWTError, jwt
+from datetime import datetime, timedelta
+  </pre>
+
+  <h3>🔐 Step 3: Create token settings</h3>
+
+  <pre>
+SECRET_KEY = "your_secret_key"
+ALGORITHM = "HS256"
+ACCESS_TOKEN_EXPIRE_MINUTES = 30
+  </pre>
+
+  <h3>🧠 What’s happening here?</h3>
+
+  <ul>
+    <li><code>SECRET_KEY</code> → used to sign the token securely</li>
+    <li><code>ALGORITHM</code> → defines how the token is encrypted</li>
+    <li><code>ACCESS_TOKEN_EXPIRE_MINUTES</code> → controls how long the token stays valid</li>
+  </ul>
+
+  <p>
+    In real applications, the <code>SECRET_KEY</code> should be stored in a <code>.env</code> file.
+  </p>
+
+  <h3>⚙️ Step 4: Create the token function</h3>
+
+  <pre>
+def create_access_token(data: dict):
+
+    # Copy user data
+    to_encode = data.copy()
+
+    # Set token expiry time
+    expire = datetime.utcnow() + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+
+    # Add expiry to token data
+    to_encode.update({"exp": expire})
+
+    # Create JWT token
+    encoded_jwt = jwt.encode(
+        to_encode,
+        SECRET_KEY,
+        algorithm=ALGORITHM
+    )
+
+    return encoded_jwt
+  </pre>
+
+  <h3>🧠 Why do we create a token?</h3>
+
+  <p>
+    Instead of forcing users to log in repeatedly, we give them a token that proves they already authenticated successfully.
+  </p>
+
+  <p>
+    The server can then verify this token before allowing access to protected routes.
+  </p>
+
+  <h3>🚪 Step 5: Return a token during login</h3>
+
+  <p>
+    Update your login endpoint:
+  </p>
+
+  <pre>
+token = create_access_token({"sub": user.email})
+
+return {
+    "access_token": token,
+    "token_type": "bearer"
+}
+  </pre>
+
+  <p>
+    Once the user logs in successfully, the server now returns an access token.
+  </p>
+
+  <h3>🧪 Step 6: Test the login endpoint</h3>
+
+  <p>
+    Go to:
+  </p>
+
+  <pre>
+http://localhost:8000/docs
+  </pre>
+
+  <p>
+    Use <strong>POST /login</strong>.
+  </p>
+
+  <p>
+    If the credentials are correct, you will receive a JWT token.
+  </p>
+
+  <h3>🔐 Step 7: Protect routes using tokens</h3>
+
+  <p>
+    Now we can create protected routes that only authenticated users can access.
+  </p>
+
+  <pre>
+from fastapi import Depends, HTTPException
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
+
+security = HTTPBearer()
+
+def verify_token(
+    credentials: HTTPAuthorizationCredentials = Depends(security)
+):
+    token = credentials.credentials
+
+    try:
+        payload = jwt.decode(
+            token,
+            SECRET_KEY,
+            algorithms=[ALGORITHM]
+        )
+
+        return payload
+
+    except JWTError:
+        raise HTTPException(
+            status_code=401,
+            detail="Invalid token"
+        )
+  </pre>
+
+  <h3>🧠 What’s happening here?</h3>
+
+  <p>
+    The server receives the token, decodes it, and checks whether it is valid and not expired.
+  </p>
+
+  <p>
+    If the token is valid, access is granted.
+  </p>
+
+  <p>
+    If not, the request is rejected.
+  </p>
+
+  <h3>🛡️ Step 8: Create a protected route</h3>
+
+  <pre>
+@app.get("/protected")
+def protected_route(payload: dict = Depends(verify_token)):
+
+    return {
+        "message": "You are authenticated",
+        "user": payload["sub"]
+    }
+  </pre>
+
+  <h3>🧪 Step 9: Test the protected route</h3>
+
+  <ol>
+    <li>Login and copy your token</li>
+    <li>Click the <strong>Authorize</strong> button in Swagger</li>
+    <li>Enter your token using:</li>
+  </ol>
+
+  <pre>
+Bearer YOUR_TOKEN
+  </pre>
+
+  <p>
+    You should now be able to access protected routes successfully.
+  </p>
+
+  <hr>
+
+  <p>
+    We have now built a complete authentication flow using JWT tokens 🎉
+  </p>
+
+  <p>
+    Your application can:
+  </p>
+
+  <ul>
+    <li>Register users</li>
+    <li>Hash passwords securely</li>
+    <li>Authenticate users</li>
+    <li>Generate JWT tokens</li>
+    <li>Protect routes using tokens</li>
+  </ul>
+</div>
 </section>
 
 <!-- Link JS -->
