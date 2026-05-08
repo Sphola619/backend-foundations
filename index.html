@@ -1571,6 +1571,10 @@ http://localhost:8000/docs
     This means the user would have to log in again every time they try to access a protected route.
   </p>
 
+  <p>
+    It's like going to a football stadium and having to show your ticket every time you want to enter a different area of the stadium. It would be very inconvenient!
+  </p>
+
   <h3>🤔 So how do applications remember users?</h3>
 
   <p>
@@ -1606,6 +1610,10 @@ http://localhost:8000/docs
     <li>The user sends the token with future requests</li>
     <li>The server verifies the token before allowing access</li>
   </ul>
+
+  <p>
+    This is called an access token, and it allows users to stay authenticated without having to log in repeatedly.
+  </p>
 
   <h3>🧠 What is a session?</h3>
 
@@ -1676,6 +1684,32 @@ python -m pip install python-jose[cryptography]
     This library allows us to securely generate and verify JWT tokens.
   </p>
 
+  <p>
+    Python-JOSE is a popular library for handling JWTs in Python. It provides functions to encode and decode JWT tokens, as well as to handle token expiration and signing. The [cryptography] part ensures that we have the necessary cryptographic algorithms available for secure token generation and verification.
+  </p>
+
+  <p>
+  Think of Python-JOSE like a machine that creates and checks VIP wristbands at a stadium.
+  </p>
+
+  <p>
+    When a user logs in successfully, the machine creates a special wristband (JWT token) containing information about that user.
+  </p>
+
+  <p>
+    The machine can also later inspect the wristband to make sure:
+  </p>
+
+  <ul>
+    <li>It is real and not fake</li>
+    <li>It has not expired</li>
+    <li>It was created by the stadium itself</li>
+  </ul>
+
+  <p>
+    The <code>[cryptography]</code> part provides the security technology needed to securely create and verify those wristbands so they cannot easily be forged or tampered with.
+  </p>
+
   <h3>📥 Step 2: Import required libraries</h3>
 
   <p>
@@ -1686,6 +1720,27 @@ python -m pip install python-jose[cryptography]
 from jose import JWTError, jwt
 from datetime import datetime, timedelta
   </pre>
+
+  <p>
+  We import <code>datetime</code> and <code>timedelta</code> so we can work with time.
+  </p>
+
+  <ul>
+    <li><code>datetime</code> gives us the current date and time</li>
+    <li><code>timedelta</code> allows us to add or subtract time</li>
+  </ul>
+
+  <p>
+    In our authentication system, we use them to set an expiry time for the token.
+  </p>
+
+  <p>
+    For example, if a token should expire after 30 minutes, we take the current time and add 30 minutes to it.
+  </p>
+
+  <p>
+    Think of it like giving someone a parking ticket that expires after a certain amount of time.
+  </p>
 
   <h3>🔐 Step 3: Create token settings</h3>
 
@@ -1830,6 +1885,185 @@ def verify_token(
   <pre>
 @app.get("/protected")
 def protected_route(payload: dict = Depends(verify_token)):
+
+    return {
+        "message": "You are authenticated",
+        "user": payload["sub"]
+    }
+  </pre>
+
+  <p>
+  At this stage, your <code>main.py</code> file should look something like this:
+  </p>
+
+  <pre>
+from fastapi import FastAPI
+from pydantic import BaseModel
+from database import cursor, conn
+from passlib.context import CryptContext
+from jose import JWTError, jwt
+from datetime import datetime, timedelta
+from fastapi import Depends, HTTPException
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
+
+# Create HTTP bearer security
+security = HTTPBearer()
+
+# JWT settings
+SECRET_KEY = "your_secret_key"
+ALGORITHM = "HS256"
+ACCESS_TOKEN_EXPIRE_MINUTES = 30
+
+# Password hashing setup
+pwd_context = CryptContext(
+    schemes=["bcrypt"],
+    deprecated="auto"
+)
+
+# Create FastAPI app
+app = FastAPI()
+
+# User registration model
+class User(BaseModel):
+    name: str
+    email: str
+    password: str
+
+# Login model
+class LoginUser(BaseModel):
+    email: str
+    password: str
+
+# Create new user
+@app.post("/users")
+def create_user(user: User):
+
+    # Hash password before storing
+    hashed_password = pwd_context.hash(user.password)
+
+    # Insert user into database
+    cursor.execute(
+        "INSERT INTO users (name, email, password) VALUES (%s, %s, %s)",
+        (user.name, user.email, hashed_password)
+    )
+
+    conn.commit()
+
+    return {
+        "message": "User created successfully",
+        "user": user.name
+    }
+
+# Retrieve users
+@app.get("/users")
+def get_users():
+
+    cursor.execute("SELECT * FROM users")
+
+    users = cursor.fetchall()
+
+    return users
+
+# Root route
+@app.get("/")
+def root():
+    return {
+        "message": "API is running"
+    }
+
+# Login route
+@app.post("/login")
+def login(user: LoginUser):
+
+    # Find user by email
+    cursor.execute(
+        "SELECT * FROM users WHERE email = %s",
+        (user.email,)
+    )
+
+    db_user = cursor.fetchone()
+
+    # User not found
+    if not db_user:
+        return {
+            "error": "User not found"
+        }
+
+    stored_password = db_user[3]
+
+    # Verify password
+    if not pwd_context.verify(
+        user.password,
+        stored_password
+    ):
+        return {
+            "error": "Invalid password"
+        }
+
+    # Generate JWT token
+    token = create_access_token({
+        "sub": user.email
+    })
+
+    return {
+        "access_token": token,
+        "token_type": "bearer"
+    }
+
+# Create JWT token
+def create_access_token(data: dict):
+
+    to_encode = data.copy()
+
+    # Create token expiry
+    expire = datetime.utcnow() + timedelta(
+        minutes=ACCESS_TOKEN_EXPIRE_MINUTES
+    )
+
+    # Add expiry to payload
+    to_encode.update({
+        "exp": expire
+    })
+
+    # Encode JWT token
+    encoded_jwt = jwt.encode(
+        to_encode,
+        SECRET_KEY,
+        algorithm=ALGORITHM
+    )
+
+    return encoded_jwt
+
+# Verify JWT token
+def verify_token(
+    credentials: HTTPAuthorizationCredentials = Depends(security)
+):
+
+    token = credentials.credentials
+
+    try:
+
+        # Decode token
+        payload = jwt.decode(
+            token,
+            SECRET_KEY,
+            algorithms=[ALGORITHM]
+        )
+
+        return payload
+
+    except JWTError:
+
+        raise HTTPException(
+            status_code=401,
+            detail="Invalid token"
+        )
+
+# Protected route
+@app.get("/protected")
+def protected_route(
+    payload: dict = Depends(verify_token)
+):
 
     return {
         "message": "You are authenticated",
