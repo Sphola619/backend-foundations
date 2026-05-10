@@ -94,6 +94,32 @@ pre {
   background: #1d4ed8;
 }
 
+/* ── Screenshots ─────────────────────────────────────────── */
+
+.screenshot {
+  display: block;
+  width: 100%;
+  max-width: 600px;
+  height: 350px;
+  object-fit: cover;
+  object-position: top;
+  margin: 16px auto;
+  border-radius: 10px;
+  border: 1px solid #334155;
+}
+
+/* ── Heading icons ───────────────────────────────────────── */
+
+h1 i, h2 i, h3 i, h4 i, h5 i, h6 i {
+  margin-right: 8px;
+  width: 1em;
+  text-align: center;
+}
+
+h1 i { color: #38bdf8; }
+h2 i { color: #60a5fa; }
+h3 i { color: #818cf8; font-size: 0.9em; }
+
 /* ── Responsive / Mobile ─────────────────────────────────── */
 
 /* Fluid font sizing so text scales down naturally */

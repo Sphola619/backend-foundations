@@ -7,6 +7,7 @@
 
   <!-- Link CSS -->
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 
 <body>
@@ -41,7 +42,7 @@
 
   <!-- INTRO -->
   <div class="card" id="about">
-    <h2>👋 About Me</h2>
+    <h2><i class="fa-solid fa-user"></i> About Me</h2>
     <p>
       Hi, I’m Sipho. I’m a developer who’s been learning backend development,
       and like a lot of people starting out, I realized something...
@@ -67,7 +68,7 @@
 
   <!-- WHAT IS BACKEND -->
   <div class="card" id="backend">
-    <h2>🧠 What is the Backend?</h2>
+    <h2><i class="fa-solid fa-brain"></i> What is the Backend?</h2>
     <p>
       Think of an app like a restaurant:
     </p>
@@ -115,7 +116,7 @@
 
   <!-- HTTP METHODS -->
   <div class="card" id="http-methods">
-    <h2>🌐 What are HTTP Methods?</h2>
+    <h2><i class="fa-solid fa-globe"></i> What are HTTP Methods?</h2>
 
     <p>
       When your app talks to a server, it sends a request.
@@ -142,7 +143,7 @@
 
   <!-- INTERACTIVE DEMO -->
   <div class="card" id="simulation">
-    <h2>🧪 Try It (Simulation)</h2>
+    <h2><i class="fa-solid fa-flask"></i> Try It (Simulation)</h2>
 
     <button onclick="simulateRequest('GET')">GET Users</button>
     <button onclick="simulateRequest('POST')">POST User</button>
@@ -159,7 +160,7 @@
 
   <!-- API EXPLANATION -->
   <div class="card" id="api">
-    <h2>🔍 What is an API?</h2>
+    <h2><i class="fa-solid fa-magnifying-glass"></i> What is an API?</h2>
 
     <p>
       Now... it took me a while to understand what an API is, and it wasn't until I started building projects that I really grasped the concept. So let's break it down.
@@ -210,7 +211,7 @@
 
   <!-- API URL ENPOINTS -->
   <div class="card" id="endpoints">
-  <h2>🔗 What is an API Endpoint URL?</h2>
+  <h2><i class="fa-solid fa-link"></i> What is an API Endpoint URL?</h2>
 
   <p>
     An API endpoint URL is a specific <strong>address</strong> on the server that you can send a request to.
@@ -428,7 +429,7 @@ uvicorn main:app --reload
 </div>
 
 <div class="card" id="post">
-  <h2>📨 Sending/Creating Data with POST</h2>
+  <h2><i class="fa-solid fa-envelope"></i> Sending/Creating Data with POST</h2>
 
   <p>
     So far, we’ve used GET requests to retrieve data.
@@ -623,7 +624,7 @@ http://localhost:8000/docs
 </div>
 
 <div class="card" id="temporary-storage">
-  <h2>💾 Storing Data Temporarily</h2>
+  <h2><i class="fa-solid fa-floppy-disk"></i> Storing Data Temporarily</h2>
 
   <p>
     Right now, our API can receive data, but it doesn’t actually store anything.
@@ -710,7 +711,7 @@ users = []
     🎉 Our API can now store and return data!
   </p>
 
-  <h2>⚠️ Important Limitation</h2>
+  <h2><i class="fa-solid fa-triangle-exclamation"></i> Important Limitation</h2>
 
   <p>
     This data is only stored temporarily in memory.
@@ -761,7 +762,7 @@ users = []
 </div>
 
 <div class="card" id="postgres">
-  <h2>🐘 Introducing PostgreSQL</h2>
+  <h2><i class="fa-solid fa-database"></i> Introducing PostgreSQL</h2>
 
   <p>
     There are many different database systems available, but we will use <strong>PostgreSQL</strong>.
@@ -793,7 +794,7 @@ users = []
 </div>
 
 <div class="card" id="install-postgres">
-  <h2>🐘 Installing PostgreSQL</h2>
+  <h2><i class="fa-solid fa-database"></i> Installing PostgreSQL</h2>
 
   <p>
     To store our data permanently, we need to install a database system.
@@ -827,7 +828,7 @@ users = []
 </div>
 
 <div class="card" id="database-connection">
-  <h2>🔌 Connecting FastAPI to PostgreSQL</h2>
+  <h2><i class="fa-solid fa-plug"></i> Connecting FastAPI to PostgreSQL</h2>
 
   <p>
     Now that PostgreSQL is installed, we need to connect our FastAPI application to it.
@@ -902,7 +903,7 @@ postgres=#
 </div>
 
 <div class="card" id="database-api">
-  <h2>🔗 Using the Database in Our API</h2>
+  <h2><i class="fa-solid fa-link"></i> Using the Database in Our API</h2>
 
   <p>
     We add this line in our <code>main.py</code> to import the database connection and cursor:
@@ -925,7 +926,7 @@ from database import cursor, conn
     Without this, our API would not be able to store or retrieve any data.
   </p>
 
-  <h3>📨 POST /users (Create a user)</h3>
+  <h3><i class="fa-solid fa-envelope"></i> POST /users (Create a user)</h3>
 
   <p>
     This endpoint allows us to send data to the server and store it in the database.
@@ -935,7 +936,7 @@ from database import cursor, conn
     When we send a user's name, the API runs an SQL command to insert that data into the <code>users</code> table.
   </p>
 
-  <h3>📥 GET /users (Retrieve users)</h3>
+  <h3><i class="fa-solid fa-download"></i> GET /users (Retrieve users)</h3>
 
   <p>
     This endpoint retrieves all users from the database.
@@ -945,7 +946,7 @@ from database import cursor, conn
     It runs a query to select all records from the <code>users</code> table and returns them.
   </p>
 
-  <h3>🧾 Updated main.py</h3>
+  <h3><i class="fa-solid fa-file-lines"></i> Updated main.py</h3>
 
   <pre class="code-block"><code>
 <span class="comment"># Import FastAPI (framework for building our API)</span>
@@ -1006,7 +1007,7 @@ def root():
     return {"message": "API is running"}
 </code></pre>
 
-  <h3>🧪 Try it out</h3>
+  <h3><i class="fa-solid fa-flask"></i> Try it out</h3>
 
   <p>
     Start your server and go to:
@@ -1034,7 +1035,7 @@ http://localhost:8000/docs
     You should now see your data coming from the database.
   </p>
 
-  <h3>🔍 View your data in PostgreSQL</h3>
+  <h3><i class="fa-solid fa-magnifying-glass"></i> View your data in PostgreSQL</h3>
 
   <p>
     You can also verify your data directly in the database.
@@ -1079,7 +1080,7 @@ SELECT * FROM users;
 </div>
 
 <div class="card" id="env-security">
-  <h2>🔐 Securing Our Database Credentials</h2>
+  <h2><i class="fa-solid fa-lock"></i> Securing Our Database Credentials</h2>
 
   <p>
     We've connected to our database and everything is working fine, but there is one more issue we need to resolve before moving on.
@@ -1101,7 +1102,7 @@ SELECT * FROM users;
     This allows us to store sensitive information like passwords outside of our code.
   </p>
 
-  <h3>📦 Step 1: Install dotenv</h3>
+  <h3><i class="fa-solid fa-box-open"></i> Step 1: Install dotenv</h3>
 
   <pre>
 python -m pip install python-dotenv
@@ -1111,7 +1112,7 @@ python -m pip install python-dotenv
     This package allows us to load environment variables from a <code>.env</code> file.
   </p>
 
-  <h3>📄 Step 2: Create a .env file</h3>
+  <h3><i class="fa-solid fa-file"></i> Step 2: Create a .env file</h3>
 
   <p>
     In your project folder, create a file called <code>.env</code> and add:
@@ -1124,7 +1125,7 @@ DB_USER=postgres
 DB_PASSWORD=your_password
   </pre>
 
-  <h3>🧠 Step 3: Update database.py</h3>
+  <h3><i class="fa-solid fa-brain"></i> Step 3: Update database.py</h3>
 
   <pre class="code-block"><code>
 <span class="comment"># Import required libraries</span>
@@ -1147,7 +1148,7 @@ conn = psycopg2.connect(
 cursor = conn.cursor()
 </code></pre>
 
-  <h3>🤔 What is <code>os</code>?</h3>
+  <h3><i class="fa-solid fa-circle-question"></i> What is <code>os</code>?</h3>
 
   <p>
     The <code>os</code> module is a built-in Python library that allows us to interact with our system.
@@ -1169,7 +1170,7 @@ os.getenv("DB_PASSWORD")
     This retrieves the database password from the <code>.env</code> file instead of hardcoding it in our code.
   </p>
 
-  <h3>⚠️ Important</h3>
+  <h3><i class="fa-solid fa-triangle-exclamation"></i> Important</h3>
 
   <p>
     Make sure you add <code>.env</code> to your <code>.gitignore</code> file so your credentials are not uploaded to GitHub.
@@ -1185,13 +1186,13 @@ os.getenv("DB_PASSWORD")
 </div>
 
 <div class="card" id="passwords">
-  <h2>🔒 Adding User Passwords</h2>
+  <h2><i class="fa-solid fa-lock"></i> Adding User Passwords</h2>
 
   <p>
     So far, we have only stored user names in our database. But in a real application, we would also want to store passwords so users can securely log in.
   </p>
 
-  <h3>🧠 Step 1: Update the BaseModel</h3>
+  <h3><i class="fa-solid fa-brain"></i> Step 1: Update the BaseModel</h3>
 
   <p>
     We need to update our <code>User</code> model to include an email and password.
@@ -1208,7 +1209,7 @@ class User(BaseModel):
     We include email because it is unique for each user and will be used for logging in. Users can have the same name, but they cannot have the same email.
   </p>
 
-  <h3>🗄️ Step 2: Update the database table</h3>
+  <h3><i class="fa-solid fa-database"></i> Step 2: Update the database table</h3>
 
   <p>
     Our <code>users</code> table currently only stores names. We need to add email and password fields.
@@ -1228,7 +1229,7 @@ ADD COLUMN password TEXT;
     Then run SELECT * FROM users; to see the updated table structure. You should now see new empty columns for email and password.
   </p>
 
-  <h3>📦 Step 3: Install password hashing</h3>
+  <h3><i class="fa-solid fa-box-open"></i> Step 3: Install password hashing</h3>
 
   <p>
     We should never store passwords as plain text. Instead, we use hashing. Run the following command to install the necessary library for hashing passwords:
@@ -1255,7 +1256,7 @@ $2b$12$KIXQJHj8u1r5Z55u1e7uO8z5y5v5u1e7uO8z5y5v5u1e7uO8z5y5v
     This installs a library that helps us securely hash passwords.
   </p>
 
-  <h3>⚠️ Important Note (Compatibility)</h3>
+  <h3><i class="fa-solid fa-triangle-exclamation"></i> Important Note (Compatibility)</h3>
 
   <p>
     You may encounter errors when using <code>passlib</code> with certain Python versions.
@@ -1277,7 +1278,7 @@ python -m pip install bcrypt==4.0.1 passlib[bcrypt]==1.7.4
     This ensures compatibility and prevents hashing errors.
   </p>
 
-  <h3>🔐 Step 4: Set up password hashing</h3>
+  <h3><i class="fa-solid fa-lock"></i> Step 4: Set up password hashing</h3>
 
   <p>
     In your <code>main.py</code>, add:
@@ -1296,7 +1297,7 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
     Simply put, <code>pwd_context</code> allows us to easily hash passwords before storing them and to verify passwords during login without having to worry about the underlying hashing logic.
   </p>
 
-  <h3>⚙️ Step 5: Update the POST endpoint</h3>
+  <h3><i class="fa-solid fa-gear"></i> Step 5: Update the POST endpoint</h3>
 
   <p>
     Before saving the password, we hash it.
@@ -1325,7 +1326,7 @@ def create_user(user: User):
     Now, when we create a user, the password is hashed before being stored in the database, as seen by hashed_password. This means that even if someone gains access to our database, they will not see the actual passwords, only the hashed versions, which are not reversible.
   </p>
 
-  <h3>🧪 Step 6: Test in Swagger</h3>
+  <h3><i class="fa-solid fa-flask"></i> Step 6: Test in Swagger</h3>
 
   <p>
     Let's start the server by running:
@@ -1382,7 +1383,7 @@ http://localhost:8000/docs
     We have the user id, name, email, and the hashed password. Excellent so far. Now we need to see if these credentials are stored in our database correctly.
   </p>
 
-  <h3>🔍 Step 7: Check your database</h3>
+  <h3><i class="fa-solid fa-magnifying-glass"></i> Step 7: Check your database</h3>
 
   <p>
     Connect to your PostgreSQL terminal, and run the following command to view the users table:
@@ -1414,7 +1415,7 @@ SELECT * FROM users;
 </div>
 
 <div class="card" id="authentication">
-  <h2>🔑 Building Authentication</h2>
+  <h2><i class="fa-solid fa-key"></i> Building Authentication</h2>
 
   <p>
     In simple terms, authentication answers the question:
@@ -1425,7 +1426,7 @@ SELECT * FROM users;
     It's like entering a football stadium and getting your ticket scanned or checked to see if it's valid. If the ticket is valid, you are allowed in; if not, you are denied entry.
   </p>
 
-  <h3>🧠 Step 1: What do we need?</h3>
+  <h3><i class="fa-solid fa-brain"></i> Step 1: What do we need?</h3>
 
   <p>
     To authenticate a user, we need two things:
@@ -1440,7 +1441,7 @@ SELECT * FROM users;
     The email helps us find the user in the database, and the password helps us verify that it is really them.
   </p>
 
-  <h3>📦 Step 2: Create a Login Model</h3>
+  <h3><i class="fa-solid fa-box-open"></i> Step 2: Create a Login Model</h3>
 
   <p>
     When a user logs in, they don’t need to send their name — only their email and password.
@@ -1452,7 +1453,7 @@ class LoginUser(BaseModel):
     password: str
   </pre>
 
-  <h3>🚪 Step 3: Create the Login Endpoint</h3>
+  <h3><i class="fa-solid fa-door-open"></i> Step 3: Create the Login Endpoint</h3>
 
   <p>
     Now we create a <strong>POST /login</strong> endpoint that will handle login requests.
@@ -1484,7 +1485,7 @@ def login(user: LoginUser):
     return {"message": "Login successful"}
   </pre>
 
-  <h3>🧠 What’s happening here?</h3>
+  <h3><i class="fa-solid fa-brain"></i> What’s happening here?</h3>
 
   <p>
     First, we check if a user with that email exists in the database.
@@ -1498,7 +1499,7 @@ def login(user: LoginUser):
     If they match, the user is authenticated.
   </p>
 
-  <h3>🧪 Step 4: Test in Swagger</h3>
+  <h3><i class="fa-solid fa-flask"></i> Step 4: Test in Swagger</h3>
 
   <p>
     Go to:
@@ -1533,7 +1534,7 @@ http://localhost:8000/docs
     If not, you will receive an error message.
   </p>
 
-  <h3>⚠️ Important</h3>
+  <h3><i class="fa-solid fa-triangle-exclamation"></i> Important</h3>
 
   <p>
     Notice that we never compare plain passwords directly.
@@ -1567,7 +1568,7 @@ http://localhost:8000/docs
 </div>
 
 <div class="card" id="tokens">
-  <h2>🎟️ Tokens & Sessions</h2>
+  <h2><i class="fa-solid fa-ticket"></i> Tokens & Sessions</h2>
 
   <p>
     We have now built an authentication system that can verify users using their email and password.
@@ -1589,13 +1590,13 @@ http://localhost:8000/docs
     It's like going to a football stadium and having to show your ticket every time you want to enter a different area of the stadium. It would be very inconvenient!
   </p>
 
-  <h3>🤔 So how do applications remember users?</h3>
+  <h3><i class="fa-solid fa-circle-question"></i> So how do applications remember users?</h3>
 
   <p>
     This is where <strong>tokens</strong> and <strong>sessions</strong> come in.
   </p>
 
-  <h3>🎟️ What is a token?</h3>
+  <h3><i class="fa-solid fa-ticket"></i> What is a token?</h3>
 
   <p>
     Think of a token like a wristband at a football stadium or music festival.
@@ -1629,7 +1630,7 @@ http://localhost:8000/docs
     This is called an access token, and it allows users to stay authenticated without having to log in repeatedly.
   </p>
 
-  <h3>🧠 What is a session?</h3>
+  <h3><i class="fa-solid fa-brain"></i> What is a session?</h3>
 
   <p>
     A session is the period during which the application remembers a logged-in user.
@@ -1647,7 +1648,7 @@ http://localhost:8000/docs
     Once the event ends or the wristband expires, you must authenticate again.
   </p>
 
-  <h3>⏳ Why do tokens expire?</h3>
+  <h3><i class="fa-solid fa-hourglass-half"></i> Why do tokens expire?</h3>
 
   <p>
     Tokens usually expire after a certain amount of time for security reasons.
@@ -1661,7 +1662,7 @@ http://localhost:8000/docs
     Expiry helps reduce the risk of unauthorized access.
   </p>
 
-  <h3>🔄 What is a refresh token?</h3>
+  <h3><i class="fa-solid fa-rotate"></i> What is a refresh token?</h3>
 
   <p>
     Sometimes applications use two tokens:
@@ -1684,7 +1685,7 @@ http://localhost:8000/docs
     Refresh tokens are mostly used for complex apps that have larger security requirements. For simplicity, we will focus on access tokens in this section.
   </p>
 
-  <h3>📦 Step 1: Install JWT support</h3>
+  <h3><i class="fa-solid fa-box-open"></i> Step 1: Install JWT support</h3>
 
   <p>
     We will use JSON Web Tokens (JWT) to create and verify tokens.
@@ -1724,7 +1725,7 @@ python -m pip install python-jose[cryptography]
     The <code>[cryptography]</code> part provides the security technology needed to securely create and verify those wristbands so they cannot easily be forged or tampered with.
   </p>
 
-  <h3>📥 Step 2: Import required libraries</h3>
+  <h3><i class="fa-solid fa-download"></i> Step 2: Import required libraries</h3>
 
   <p>
     In <code>main.py</code>, add:
@@ -1756,7 +1757,7 @@ from datetime import datetime, timedelta
     Think of it like giving someone a parking ticket that expires after a certain amount of time.
   </p>
 
-  <h3>🔐 Step 3: Create token settings</h3>
+  <h3><i class="fa-solid fa-lock"></i> Step 3: Create token settings</h3>
 
   <pre>
 SECRET_KEY = "your_secret_key"
@@ -1764,7 +1765,7 @@ ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
   </pre>
 
-  <h3>🧠 What’s happening here?</h3>
+  <h3><i class="fa-solid fa-brain"></i> What’s happening here?</h3>
 
   <ul>
     <li><code>SECRET_KEY</code> → used to sign the token securely</li>
@@ -1776,7 +1777,7 @@ ACCESS_TOKEN_EXPIRE_MINUTES = 30
     In real applications, the <code>SECRET_KEY</code> should be stored in a <code>.env</code> file.
   </p>
 
-  <h3>⚙️ Step 4: Create the token function</h3>
+  <h3><i class="fa-solid fa-gear"></i> Step 4: Create the token function</h3>
 
   <pre>
 def create_access_token(data: dict):
@@ -1800,7 +1801,7 @@ def create_access_token(data: dict):
     return encoded_jwt
   </pre>
 
-  <h3>🧠 Why do we create a token?</h3>
+  <h3><i class="fa-solid fa-brain"></i> Why do we create a token?</h3>
 
   <p>
     Instead of forcing users to log in repeatedly, we give them a token that proves they already authenticated successfully.
@@ -1810,7 +1811,7 @@ def create_access_token(data: dict):
     The server can then verify this token before allowing access to protected routes.
   </p>
 
-  <h3>🚪 Step 5: Return a token during login</h3>
+  <h3><i class="fa-solid fa-door-open"></i> Step 5: Return a token during login</h3>
 
   <p>
     Update your login endpoint:
@@ -1829,7 +1830,7 @@ return {
     Once the user logs in successfully, the server now returns an access token.
   </p>
 
-  <h3>🧪 Step 6: Test the login endpoint</h3>
+  <h3><i class="fa-solid fa-flask"></i> Step 6: Test the login endpoint</h3>
 
   <p>
     Go to:
@@ -1847,7 +1848,7 @@ http://localhost:8000/docs
     If the credentials are correct, you will receive a JWT token.
   </p>
 
-  <h3>🔐 Step 7: Protect routes using tokens</h3>
+  <h3><i class="fa-solid fa-lock"></i> Step 7: Protect routes using tokens</h3>
 
   <p>
     Now we can create protected routes that only authenticated users can access.
@@ -1880,7 +1881,7 @@ def verify_token(
         )
   </pre>
 
-  <h3>🧠 What’s happening here?</h3>
+  <h3><i class="fa-solid fa-brain"></i> What’s happening here?</h3>
 
   <p>
     The server receives the token, decodes it, and checks whether it is valid and not expired.
@@ -1894,7 +1895,7 @@ def verify_token(
     If not, the request is rejected.
   </p>
 
-  <h3>🛡️ Step 8: Create a protected route</h3>
+  <h3><i class="fa-solid fa-shield-halved"></i> Step 8: Create a protected route</h3>
 
   <pre>
 @app.get("/protected")
@@ -2085,7 +2086,7 @@ def protected_route(
     }
   </pre>
 
-  <h3>🧪 Step 9: Test the protected route</h3>
+  <h3><i class="fa-solid fa-flask"></i> Step 9: Test the protected route</h3>
 
   <ol>
     <li>Login and copy your token</li>
@@ -2121,7 +2122,7 @@ Bearer YOUR_TOKEN
 </div>
 
 <div class="card" id="frontend">
-  <h2>🌐 Connecting a Frontend to Our Backend</h2>
+  <h2><i class="fa-solid fa-globe"></i> Connecting a Frontend to Our Backend</h2>
   
   <p>
     So far, we have tested everything using Swagger UI, but real applications usually have a frontend interface where users enter their credentials.
@@ -2147,7 +2148,7 @@ Bearer YOUR_TOKEN
     The goal here is not to become frontend experts, but to understand how the frontend and backend communicate during authentication.
   </p>
 
-  <h3>📁 Project Structure</h3>
+  <h3><i class="fa-solid fa-folder"></i> Project Structure</h3>
 
   <p>
     Our project is now split into two separate folders:
@@ -2172,7 +2173,7 @@ project-folder/
     This structure is more realistic because in many real applications, the frontend and backend are separate applications that communicate through APIs.
   </p>
 
-  <h3>📄 Step 1: Create the Login Page</h3>
+  <h3><i class="fa-solid fa-file"></i> Step 1: Create the Login Page</h3>
 
   <p>
     Inside the <code>frontend</code> folder, create:
@@ -2220,7 +2221,7 @@ index.html
 &lt;/div&gt;
   </pre>
 
-  <h3>🧠 What’s happening here?</h3>
+  <h3><i class="fa-solid fa-brain"></i> What’s happening here?</h3>
 
   <ul>
     <li><code>input</code> fields allow users to enter their credentials</li>
@@ -2228,7 +2229,7 @@ index.html
     <li>The button calls the <code>loginUser()</code> function when clicked</li>
   </ul>
 
-  <h3>🎨 Step 2: Add Styling</h3>
+  <h3><i class="fa-solid fa-palette"></i> Step 2: Add Styling</h3>
 
   <p>
     Create:
@@ -2239,26 +2240,14 @@ styles.css
   </pre>
 
   <p>
-    This file controls the appearance of the frontend.
+    Add some styling using css to enhance the appearance of the login page to your liking.
   </p>
-
-  <p>
-    CSS is responsible for styling things like:
-  </p>
-
-  <ul>
-    <li>Colors</li>
-    <li>Spacing</li>
-    <li>Fonts</li>
-    <li>Layouts</li>
-    <li>Animations</li>
-  </ul>
 
   <p>
     The frontend design itself is not the focus of this series, so we will keep things relatively simple.
   </p>
 
-  <h3>⚙️ Step 3: Create the JavaScript Logic</h3>
+  <h3><i class="fa-solid fa-gear"></i> Step 3: Create the JavaScript Logic</h3>
 
   <p>
     Create:
@@ -2272,7 +2261,7 @@ script.js
     This file handles the login functionality and communication with the backend.
   </p>
 
-  <h3>🧠 Understanding async</h3>
+  <h3><i class="fa-solid fa-brain"></i> Understanding async</h3>
 
   <pre>
 async function loginUser()
@@ -2294,7 +2283,7 @@ async function loginUser()
     In the same way, asynchronous code allows the browser to continue running while waiting for a server response.
   </p>
 
-  <h3>📡 Understanding fetch()</h3>
+  <h3><i class="fa-solid fa-satellite-dish"></i> Understanding fetch()</h3>
 
   <pre>
 const response = await fetch(...)
@@ -2322,7 +2311,7 @@ http://127.0.0.1:8000/login
     <li>The backend sends a response back</li>
   </ul>
 
-  <h3>⏳ Understanding await</h3>
+  <h3><i class="fa-solid fa-hourglass-half"></i> Understanding await</h3>
 
   <p>
     The <code>await</code> keyword tells JavaScript:
@@ -2336,7 +2325,7 @@ http://127.0.0.1:8000/login
     In this case, we wait for the backend to respond before trying to use the response data.
   </p>
 
-  <h3>📦 Sending JSON Data</h3>
+  <h3><i class="fa-solid fa-box-open"></i> Sending JSON Data</h3>
 
   <pre>
 body: JSON.stringify({
@@ -2353,7 +2342,7 @@ body: JSON.stringify({
     Remember earlier in the series when we said APIs commonly communicate using JSON? This is exactly where that happens.
   </p>
 
-  <h3>💾 Saving the Token</h3>
+  <h3><i class="fa-solid fa-floppy-disk"></i> Saving the Token</h3>
 
   <pre>
 localStorage.setItem(
@@ -2378,7 +2367,7 @@ localStorage.setItem(
     In this case, we store the user's authentication token so the application can remember them.
   </p>
 
-  <h3>➡️ Redirecting the User</h3>
+  <h3><i class="fa-solid fa-arrow-right"></i> Redirecting the User</h3>
 
   <pre>
 window.location.href = "welcome.html";
@@ -2392,11 +2381,93 @@ window.location.href = "welcome.html";
     This simulates how real applications redirect authenticated users to dashboards or protected pages.
   </p>
 
-  <h3>🎉 Welcome Page</h3>
+  <h3><i class="fa-solid fa-star"></i> Welcome Page</h3>
 
   <p>
     Our <code>welcome.html</code> page simply confirms that the authentication flow worked successfully.
+    Create this file inside your <code>frontend/</code> folder:
   </p>
+
+  <pre class="code-block"><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+  &lt;meta charset="UTF-8"&gt;
+  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+  &lt;title&gt;Welcome&lt;/title&gt;
+  &lt;link rel="stylesheet" href="styles.css"&gt;
+  &lt;style&gt;
+    .welcome-container {
+      text-align: center;
+      padding: 3rem 2rem;
+    }
+
+    .welcome-container .emoji {
+      font-size: 3.5rem;
+      display: block;
+      margin-bottom: 1rem;
+      animation: pop 0.5s ease;
+    }
+
+    @keyframes pop {
+      0%   { transform: scale(0.5); opacity: 0; }
+      80%  { transform: scale(1.15); }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .welcome-container h2 {
+      font-size: 1.5rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .welcome-container p {
+      color: #94a3b8;
+      font-size: 0.95rem;
+      margin-bottom: 2rem;
+    }
+
+    .logout-btn {
+      background: linear-gradient(135deg, #dc2626, #b91c1c) !important;
+      width: auto !important;
+      padding: 11px 32px !important;
+      border-radius: 8px !important;
+    }
+
+    .logout-btn:hover {
+      opacity: 0.85 !important;
+    }
+  &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+  &lt;div class="container welcome-container"&gt;
+    &lt;span class="emoji"&gt;🎉&lt;/span&gt;
+    &lt;h2&gt;Congratulations, you have logged in successfully!&lt;/h2&gt;
+    &lt;p&gt;You're now authenticated and ready to go.&lt;/p&gt;
+    &lt;button class="logout-btn" onclick="logout()"&gt;Logout&lt;/button&gt;
+  &lt;/div&gt;
+
+  &lt;script&gt;
+    // Redirect back to login if no token
+    if (!localStorage.getItem("token")) {
+      window.location.href = "index.html";
+    }
+
+    function logout() {
+      localStorage.removeItem("token");
+      window.location.href = "index.html";
+    }
+  &lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+  <p><strong>What's happening here?</strong></p>
+
+  <ul>
+    <li>On load, the script checks <code>localStorage</code> for a token — if there isn't one, it immediately redirects back to the login page, so unauthenticated users can't access this page directly</li>
+    <li>The <code>logout()</code> function removes the token from <code>localStorage</code> and sends the user back to login</li>
+    <li>The pop animation gives a satisfying visual confirmation that login worked</li>
+  </ul>
 
   <p>
     The user has now:
@@ -2410,7 +2481,7 @@ window.location.href = "welcome.html";
     <li>Logged into the application</li>
   </ul>
 
-  <h3>⚠️ Important: Understanding CORS</h3>
+  <h3><i class="fa-solid fa-triangle-exclamation"></i> Important: Understanding CORS</h3>
 
   <p>
     Since our frontend and backend run separately, browsers may block communication between them for security reasons.
@@ -2440,10 +2511,10 @@ window.location.href = "welcome.html";
     To allow our frontend to communicate with FastAPI, we add CORS middleware.
   </p>
 
-  <h3>🔧 Add CORS Middleware</h3>
+  <h3><i class="fa-solid fa-wrench"></i> Add CORS Middleware</h3>
 
   <p>
-    In <code>main.py</code>, add:
+    In <code>main.py</code> file in the backend, add:
   </p>
 
   <pre>
@@ -2472,7 +2543,7 @@ app.add_middleware(
 )
   </pre>
 
-  <h3>🚀 Running the Application</h3>
+  <h3><i class="fa-solid fa-rocket"></i> Running the Application</h3>
 
   <p>
     Start the backend:
@@ -2497,6 +2568,14 @@ frontend/index.html
   <p>
     Enter your credentials and log in.
   </p>
+
+  <img src="images/login.png" alt="Login Screenshot" class="screenshot">
+
+  <p>
+    If your credentials are correct, you should be redirected to the welcome page, and met with the following message: "🎉 Congratulations, you have logged in successfully!"
+  </p>
+
+  <img src="images/welcome.png" alt="Welcome Screenshot" class="screenshot">
 
   <hr>
 
