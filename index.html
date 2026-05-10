@@ -23,10 +23,31 @@
   <p>Learning backend development from the ground up</p>
 </header>
 
+<nav class="nav-menu">
+  <a href="#about">About</a>
+  <a href="#backend">Backend</a>
+  <a href="#http-methods">HTTP Methods</a>
+  <a href="#simulation">Simulation</a>
+  <a href="#api">API</a>
+  <a href="#endpoints">Endpoints</a>
+  <a href="#first-api">First API</a>
+  <a href="#post">POST Requests</a>
+  <a href="#temporary-storage">Temporary Storage</a>
+  <a href="#postgres">PostgreSQL</a>
+  <a href="#install-postgres">Install PostgreSQL</a>
+  <a href="#database-connection">Database Connection</a>
+  <a href="#database-api">Using Database</a>
+  <a href="#env-security">Environment Variables</a>
+  <a href="#passwords">Passwords</a>
+  <a href="#authentication">Authentication</a>
+  <a href="#tokens">Tokens & Sessions</a>
+  <a href="#frontend">Frontend</a>
+</nav>
+
 <section>
 
   <!-- INTRO -->
-  <div class="card">
+  <div class="card" id="about">
     <h2>👋 About Me</h2>
     <p>
       Hi, I’m Sipho. I’m a developer who’s been learning backend development,
@@ -52,7 +73,7 @@
   </div>
 
   <!-- WHAT IS BACKEND -->
-  <div class="card">
+  <div class="card" id="backend">
     <h2>🧠 What is the Backend?</h2>
     <p>
       Think of an app like a restaurant:
@@ -100,7 +121,7 @@
   </div>
 
   <!-- HTTP METHODS -->
-  <div class="card">
+  <div class="card" id="http-methods">
     <h2>🌐 What are HTTP Methods?</h2>
 
     <p>
@@ -127,7 +148,7 @@
   </div>
 
   <!-- INTERACTIVE DEMO -->
-  <div class="card">
+  <div class="card" id="simulation">
     <h2>🧪 Try It (Simulation)</h2>
 
     <button onclick="simulateRequest('GET')">GET Users</button>
@@ -144,7 +165,7 @@
   </div>
 
   <!-- API EXPLANATION -->
-  <div class="card">
+  <div class="card" id="api">
     <h2>🔍 What is an API?</h2>
 
     <p>
@@ -195,7 +216,7 @@
   </div>
 
   <!-- API URL ENPOINTS -->
-  <div class="card">
+  <div class="card" id="endpoints">
   <h2>🔗 What is an API Endpoint URL?</h2>
 
   <p>
@@ -233,7 +254,7 @@ GET http://localhost:8000/users
   </ul>
 </div>
 
-<div class="card">
+<div class="card" id="first-api">
   <h2>Alright, let’s build our first API endpoint.</h2>
 
   <p>
@@ -413,7 +434,7 @@ uvicorn main:app --reload
   </p>
 </div>
 
-<div class="card">
+<div class="card" id="post">
   <h2>📨 Sending/Creating Data with POST</h2>
 
   <p>
@@ -608,7 +629,7 @@ http://localhost:8000/docs
   </pre>
 </div>
 
-<div class="card">
+<div class="card" id="temporary-storage">
   <h2>💾 Storing Data Temporarily</h2>
 
   <p>
@@ -746,7 +767,7 @@ users = []
   </p>
 </div>
 
-<div class="card">
+<div class="card" id="postgres">
   <h2>🐘 Introducing PostgreSQL</h2>
 
   <p>
@@ -778,7 +799,7 @@ users = []
   </p>
 </div>
 
-<div class="card">
+<div class="card" id="install-postgres">
   <h2>🐘 Installing PostgreSQL</h2>
 
   <p>
@@ -812,7 +833,7 @@ users = []
   </p>
 </div>
 
-<div class="card">
+<div class="card" id="database-connection">
   <h2>🔌 Connecting FastAPI to PostgreSQL</h2>
 
   <p>
@@ -887,7 +908,7 @@ postgres=#
   </p>
 </div>
 
-<div class="card">
+<div class="card" id="database-api">
   <h2>🔗 Using the Database in Our API</h2>
 
   <p>
@@ -1064,7 +1085,7 @@ SELECT * FROM users;
   </p>
 </div>
 
-<div class="card">
+<div class="card" id="env-security">
   <h2>🔐 Securing Our Database Credentials</h2>
 
   <p>
@@ -1170,7 +1191,7 @@ os.getenv("DB_PASSWORD")
   </p>
 </div>
 
-<div class="card">
+<div class="card" id="passwords">
   <h2>🔒 Adding User Passwords</h2>
 
   <p>
@@ -1399,7 +1420,7 @@ SELECT * FROM users;
   </p>
 </div>
 
-<div class="card">
+<div class="card" id="authentication">
   <h2>🔑 Building Authentication</h2>
 
   <p>
@@ -1552,7 +1573,7 @@ http://localhost:8000/docs
   </p>
 </div>
 
-<div class="card">
+<div class="card" id="tokens">
   <h2>🎟️ Tokens & Sessions</h2>
 
   <p>
@@ -1906,42 +1927,42 @@ from datetime import datetime, timedelta
 from fastapi import Depends, HTTPException
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 
-# Create HTTP bearer security
+<span class="comment"># Create HTTP bearer security</span>
 security = HTTPBearer()
 
-# JWT settings
+<span class="comment"># JWT settings</span>
 SECRET_KEY = "your_secret_key"
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
-# Password hashing setup
+<span class="comment"># Password hashing setup</span>
 pwd_context = CryptContext(
     schemes=["bcrypt"],
     deprecated="auto"
 )
 
-# Create FastAPI app
+<span class="comment"># Create FastAPI app</span>
 app = FastAPI()
 
-# User registration model
+<span class="comment"># User registration model</span>
 class User(BaseModel):
     name: str
     email: str
     password: str
 
-# Login model
+<span class="comment"># Login model</span>
 class LoginUser(BaseModel):
     email: str
     password: str
 
-# Create new user
+<span class="comment"># Create new user</span>
 @app.post("/users")
 def create_user(user: User):
 
-    # Hash password before storing
+    <span class="comment"># Hash password before storing</span>
     hashed_password = pwd_context.hash(user.password)
 
-    # Insert user into database
+    <span class="comment"># Insert user into database</span>
     cursor.execute(
         "INSERT INTO users (name, email, password) VALUES (%s, %s, %s)",
         (user.name, user.email, hashed_password)
@@ -1954,7 +1975,7 @@ def create_user(user: User):
         "user": user.name
     }
 
-# Retrieve users
+<span class="comment"># Retrieve users</span>
 @app.get("/users")
 def get_users():
 
@@ -1964,18 +1985,18 @@ def get_users():
 
     return users
 
-# Root route
+<span class="comment"># Root route</span>
 @app.get("/")
 def root():
     return {
         "message": "API is running"
     }
 
-# Login route
+<span class="comment"># Login route</span>
 @app.post("/login")
 def login(user: LoginUser):
 
-    # Find user by email
+    <span class="comment"># Find user by email</span>
     cursor.execute(
         "SELECT * FROM users WHERE email = %s",
         (user.email,)
@@ -1983,7 +2004,7 @@ def login(user: LoginUser):
 
     db_user = cursor.fetchone()
 
-    # User not found
+    <span class="comment"># User not found</span>
     if not db_user:
         return {
             "error": "User not found"
@@ -1991,7 +2012,7 @@ def login(user: LoginUser):
 
     stored_password = db_user[3]
 
-    # Verify password
+    <span class="comment"># Verify password</span>
     if not pwd_context.verify(
         user.password,
         stored_password
@@ -2000,7 +2021,7 @@ def login(user: LoginUser):
             "error": "Invalid password"
         }
 
-    # Generate JWT token
+    <span class="comment"># Generate JWT token</span>
     token = create_access_token({
         "sub": user.email
     })
@@ -2010,7 +2031,7 @@ def login(user: LoginUser):
         "token_type": "bearer"
     }
 
-# Create JWT token
+<span class="comment"># Create JWT token</span>
 def create_access_token(data: dict):
 
     to_encode = data.copy()
@@ -2020,12 +2041,12 @@ def create_access_token(data: dict):
         minutes=ACCESS_TOKEN_EXPIRE_MINUTES
     )
 
-    # Add expiry to payload
+    <span class="comment"># Add expiry to payload</span>
     to_encode.update({
         "exp": expire
     })
 
-    # Encode JWT token
+    <span class="comment"># Encode JWT token</span>
     encoded_jwt = jwt.encode(
         to_encode,
         SECRET_KEY,
@@ -2034,7 +2055,7 @@ def create_access_token(data: dict):
 
     return encoded_jwt
 
-# Verify JWT token
+<span class="comment"># Verify JWT token</span>
 def verify_token(
     credentials: HTTPAuthorizationCredentials = Depends(security)
 ):
@@ -2059,7 +2080,7 @@ def verify_token(
             detail="Invalid token"
         )
 
-# Protected route
+<span class="comment"># Protected route</span>
 @app.get("/protected")
 def protected_route(
     payload: dict = Depends(verify_token)
@@ -2104,6 +2125,10 @@ Bearer YOUR_TOKEN
     <li>Generate JWT tokens</li>
     <li>Protect routes using tokens</li>
   </ul>
+</div>
+
+<div class="card" id="frontend">
+  <h2>Frontend</h2>
 </div>
 </section>
 

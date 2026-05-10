@@ -68,3 +68,28 @@ pre {
 .comment {
   color: #22c55e; /* green */
 }
+
+/* Navigation styling */
+.nav-menu {
+  position: sticky;
+  top: 0;
+  background: #111827;
+  padding: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  z-index: 1000;
+}
+
+.nav-menu a {
+  color: white;
+  text-decoration: none;
+  background: #2563eb;
+  padding: 8px 12px;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.nav-menu a:hover {
+  background: #1d4ed8;
+}
