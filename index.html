@@ -2128,7 +2128,407 @@ Bearer YOUR_TOKEN
 </div>
 
 <div class="card" id="frontend">
-  <h2>Frontend</h2>
+  <h2>🌐 Connecting a Frontend to Our Backend</h2>
+  
+  <p>
+    So far, we have tested everything using Swagger UI, but real applications usually have a frontend interface where users enter their credentials.
+  </p>
+
+  <p>
+    Now it's time to connect our backend to a frontend interface so we can better understand how the backend communicates with the frontend during authentication.
+  </p>
+
+  <p>
+    In this section, we will build a very small frontend login page that:
+  </p>
+
+  <ul>
+    <li>Accepts a user's email and password</li>
+    <li>Sends a login request to the backend</li>
+    <li>Receives a JWT token</li>
+    <li>Saves the token in the browser</li>
+    <li>Redirects the user after successful login</li>
+  </ul>
+
+  <p>
+    The goal here is not to become frontend experts, but to understand how the frontend and backend communicate during authentication.
+  </p>
+
+  <h3>📁 Project Structure</h3>
+
+  <p>
+    Our project is now split into two separate folders:
+  </p>
+
+  <pre>
+project-folder/
+
+├── backend/
+│   ├── main.py
+│   ├── database.py
+│   └── .env
+
+├── frontend/
+│   ├── index.html
+│   ├── styles.css
+│   ├── script.js
+│   └── welcome.html
+  </pre>
+
+  <p>
+    This structure is more realistic because in many real applications, the frontend and backend are separate applications that communicate through APIs.
+  </p>
+
+  <h3>📄 Step 1: Create the Login Page</h3>
+
+  <p>
+    Inside the <code>frontend</code> folder, create:
+  </p>
+
+  <pre>
+index.html
+  </pre>
+
+  <p>
+    This file contains the login form that users will interact with.
+  </p>
+
+  <pre>
+&lt;div class="container"&gt;
+
+  &lt;h2&gt;🔐 Login&lt;/h2&gt;
+
+  &lt;div class="input-group"&gt;
+    &lt;label for="email"&gt;Email&lt;/label&gt;
+
+    &lt;input
+      type="email"
+      id="email"
+      placeholder="you@example.com"
+    &gt;
+  &lt;/div&gt;
+
+  &lt;div class="input-group"&gt;
+    &lt;label for="password"&gt;Password&lt;/label&gt;
+
+    &lt;input
+      type="password"
+      id="password"
+      placeholder="Enter your password"
+    &gt;
+  &lt;/div&gt;
+
+  &lt;button onclick="loginUser()"&gt;
+    Login
+  &lt;/button&gt;
+
+  &lt;div class="message" id="message"&gt;&lt;/div&gt;
+
+&lt;/div&gt;
+  </pre>
+
+  <h3>🧠 What’s happening here?</h3>
+
+  <ul>
+    <li><code>input</code> fields allow users to enter their credentials</li>
+    <li><code>id="email"</code> and <code>id="password"</code> help JavaScript access those values later</li>
+    <li>The button calls the <code>loginUser()</code> function when clicked</li>
+  </ul>
+
+  <h3>🎨 Step 2: Add Styling</h3>
+
+  <p>
+    Create:
+  </p>
+
+  <pre>
+styles.css
+  </pre>
+
+  <p>
+    This file controls the appearance of the frontend.
+  </p>
+
+  <p>
+    CSS is responsible for styling things like:
+  </p>
+
+  <ul>
+    <li>Colors</li>
+    <li>Spacing</li>
+    <li>Fonts</li>
+    <li>Layouts</li>
+    <li>Animations</li>
+  </ul>
+
+  <p>
+    The frontend design itself is not the focus of this series, so we will keep things relatively simple.
+  </p>
+
+  <h3>⚙️ Step 3: Create the JavaScript Logic</h3>
+
+  <p>
+    Create:
+  </p>
+
+  <pre>
+script.js
+  </pre>
+
+  <p>
+    This file handles the login functionality and communication with the backend.
+  </p>
+
+  <h3>🧠 Understanding async</h3>
+
+  <pre>
+async function loginUser()
+  </pre>
+
+  <p>
+    The <code>async</code> keyword allows the function to perform tasks that take time, such as communicating with a backend server.
+  </p>
+
+  <p>
+    Think of it like ordering food at a restaurant.
+  </p>
+
+  <p>
+    You place the order, but instead of freezing and staring at the kitchen until the food arrives, you continue doing other things while waiting.
+  </p>
+
+  <p>
+    In the same way, asynchronous code allows the browser to continue running while waiting for a server response.
+  </p>
+
+  <h3>📡 Understanding fetch()</h3>
+
+  <pre>
+const response = await fetch(...)
+  </pre>
+
+  <p>
+    The <code>fetch()</code> function sends an HTTP request to the backend.
+  </p>
+
+  <p>
+    In our case, it sends the user's email and password to:
+  </p>
+
+  <pre>
+http://127.0.0.1:8000/login
+  </pre>
+
+  <p>
+    Think of <code>fetch()</code> like sending a waiter to the kitchen with your order.
+  </p>
+
+  <ul>
+    <li>The frontend sends the request</li>
+    <li>The backend processes it</li>
+    <li>The backend sends a response back</li>
+  </ul>
+
+  <h3>⏳ Understanding await</h3>
+
+  <p>
+    The <code>await</code> keyword tells JavaScript:
+  </p>
+
+  <p>
+    “Wait for this task to finish before continuing.”
+  </p>
+
+  <p>
+    In this case, we wait for the backend to respond before trying to use the response data.
+  </p>
+
+  <h3>📦 Sending JSON Data</h3>
+
+  <pre>
+body: JSON.stringify({
+  email,
+  password
+})
+  </pre>
+
+  <p>
+    This converts the JavaScript object into JSON format before sending it to the backend.
+  </p>
+
+  <p>
+    Remember earlier in the series when we said APIs commonly communicate using JSON? This is exactly where that happens.
+  </p>
+
+  <h3>💾 Saving the Token</h3>
+
+  <pre>
+localStorage.setItem(
+  "token",
+  data.access_token
+)
+  </pre>
+
+  <p>
+    Once login is successful, the backend sends us a JWT token.
+  </p>
+
+  <p>
+    We then save that token inside the browser using <code>localStorage</code>.
+  </p>
+
+  <p>
+    Think of localStorage like a small storage locker inside the browser where we can temporarily keep information.
+  </p>
+
+  <p>
+    In this case, we store the user's authentication token so the application can remember them.
+  </p>
+
+  <h3>➡️ Redirecting the User</h3>
+
+  <pre>
+window.location.href = "welcome.html";
+  </pre>
+
+  <p>
+    After successful login, we redirect the user to another page.
+  </p>
+
+  <p>
+    This simulates how real applications redirect authenticated users to dashboards or protected pages.
+  </p>
+
+  <h3>🎉 Welcome Page</h3>
+
+  <p>
+    Our <code>welcome.html</code> page simply confirms that the authentication flow worked successfully.
+  </p>
+
+  <p>
+    The user has now:
+  </p>
+
+  <ul>
+    <li>Entered credentials on the frontend</li>
+    <li>Sent a request to the backend</li>
+    <li>Been authenticated</li>
+    <li>Received a JWT token</li>
+    <li>Logged into the application</li>
+  </ul>
+
+  <h3>⚠️ Important: Understanding CORS</h3>
+
+  <p>
+    Since our frontend and backend run separately, browsers may block communication between them for security reasons.
+  </p>
+
+  <p>
+    This security system is called <strong>CORS</strong> (Cross-Origin Resource Sharing).
+  </p>
+
+  <p>
+    Think of it like a security guard between two buildings.
+  </p>
+
+  <p>
+    Even if two buildings belong to the same company, security may still ask:
+  </p>
+
+  <p>
+    “Are these two allowed to communicate?”
+  </p>
+
+  <p>
+    By default, browsers are strict about allowing websites to communicate with different servers.
+  </p>
+
+  <p>
+    To allow our frontend to communicate with FastAPI, we add CORS middleware.
+  </p>
+
+  <h3>🔧 Add CORS Middleware</h3>
+
+  <p>
+    In <code>main.py</code>, add:
+  </p>
+
+  <pre>
+from fastapi.middleware.cors import CORSMiddleware
+  </pre>
+
+  <p>
+    Then below:
+  </p>
+
+  <pre>
+app = FastAPI()
+  </pre>
+
+  <p>
+    add:
+  </p>
+
+  <pre>
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+  </pre>
+
+  <h3>🚀 Running the Application</h3>
+
+  <p>
+    Start the backend:
+  </p>
+
+  <pre>
+uvicorn main:app --reload
+  </pre>
+
+  <p>
+    Then open:
+  </p>
+
+  <pre>
+frontend/index.html
+  </pre>
+
+  <p>
+    in your browser.
+  </p>
+
+  <p>
+    Enter your credentials and log in.
+  </p>
+
+  <hr>
+
+  <p>
+    Congratulations 🎉
+  </p>
+
+  <p>
+    You have now built a complete full authentication flow:
+  </p>
+
+  <ul>
+    <li>Frontend login form</li>
+    <li>Backend authentication</li>
+    <li>Password hashing</li>
+    <li>JWT token generation</li>
+    <li>Protected routes</li>
+    <li>Database storage</li>
+  </ul>
+
+  <p>
+    This is the foundation of how authentication works in many modern web applications.
+  </p>
+
+</div>
 </div>
 </section>
 
