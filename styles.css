@@ -93,3 +93,117 @@ pre {
 .nav-menu a:hover {
   background: #1d4ed8;
 }
+
+/* ── Responsive / Mobile ─────────────────────────────────── */
+
+/* Fluid font sizing so text scales down naturally */
+html {
+  font-size: 16px;
+}
+
+/* Make pre/code blocks scroll horizontally instead of overflowing */
+pre, .code-block {
+  white-space: pre;
+  word-break: normal;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  font-size: 0.85rem;
+}
+
+/* Tablets (≤ 768px) */
+@media (max-width: 768px) {
+  section {
+    padding: 16px;
+  }
+
+  .card {
+    padding: 16px;
+    margin-top: 14px;
+    border-radius: 8px;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+
+  h2 {
+    font-size: 1.15rem;
+  }
+
+  h3 {
+    font-size: 1rem;
+  }
+
+  /* Nav wraps tightly on tablets */
+  .nav-menu {
+    padding: 10px 12px;
+    gap: 8px;
+  }
+
+  .nav-menu a {
+    font-size: 13px;
+    padding: 6px 10px;
+  }
+
+  button {
+    padding: 8px 12px;
+    font-size: 0.9rem;
+  }
+}
+
+/* Small phones (≤ 480px) */
+@media (max-width: 480px) {
+  header {
+    padding: 16px 12px;
+  }
+
+  header p {
+    font-size: 0.9rem;
+  }
+
+  section {
+    padding: 12px;
+  }
+
+  .card {
+    padding: 14px 12px;
+    margin-top: 12px;
+  }
+
+  h1 {
+    font-size: 1.3rem;
+  }
+
+  h2 {
+    font-size: 1.05rem;
+  }
+
+  /* Stack nav links so they don't crowd */
+  .nav-menu {
+    padding: 8px 10px;
+    gap: 6px;
+  }
+
+  .nav-menu a {
+    font-size: 12px;
+    padding: 5px 8px;
+  }
+
+  /* Buttons go full-width and stack on small screens */
+  button {
+    display: block;
+    width: 100%;
+    margin-right: 0;
+    margin-top: 8px;
+    font-size: 0.9rem;
+  }
+
+  pre, .code-block {
+    font-size: 0.78rem;
+    padding: 10px;
+  }
+
+  ul, ol {
+    padding-left: 18px;
+  }
+}
