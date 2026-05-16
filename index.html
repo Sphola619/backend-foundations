@@ -58,12 +58,15 @@
       <em>
         "If you can't explain it simply, you don't understand it well enough."
       </em>
+    </p>
+    <p>
+      My hope is that this can also be a useful "cheat sheet" for anyone who wants to understand the basics of backend development and for whenever you need a quick refresher on the core concepts or get stuck on something.
+    </p>
     <p>
       I also want to emphasize that I'm no expert, and I'm learning as I go, and as I continue to learn, I will update this series with new insights and improvements. 
     </p>
     <p>
       Also, I believe teaching helps me learn better too.
-    </p>  
     </p>
   </div>
 
@@ -1412,6 +1415,46 @@ SELECT * FROM users;
 
   <p>
     This will involve checking if the user exists in the database and verifying that their password matches the stored hashed password.
+  </p>
+</div>
+
+<div class="card" id="salting">
+  <h3><i class="fa-solid fa-shuffle"></i> Bonus: Understanding Salting</h3>
+
+  <p>
+    The bcrypt algorithm also automatically performs something called <strong>salting</strong>.
+  </p>
+
+  <p>
+    Salting adds random extra data to each password before it is hashed.
+  </p>
+
+  <p>
+    This is important because two different users may sometimes choose the exact same password.
+  </p>
+
+  <p>
+    Without salting, identical passwords would produce identical hashes, which could help attackers identify commonly used passwords more easily.
+  </p>
+
+  <p>
+    With salting, even if two users have the same password, their final hashed passwords will still look completely different.
+  </p>
+
+  <p>
+    Think of it like adding a unique secret ingredient to every user's password before locking it away.
+  </p>
+
+  <p>
+    This adds another layer of security and makes password cracking significantly more difficult if hackers ever gain unauthorized access to a database.
+  </p>
+
+  <p>
+    Fortunately, bcrypt handles salting automatically for us behind the scenes, so we do not need to manually create salts ourselves.
+  </p>
+
+  <p>
+    Salting is a deeper cybersecurity and cryptography topic on its own, so for now it is enough to simply understand the purpose behind it.
   </p>
 </div>
 
