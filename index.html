@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Backend Basics by Sipho</title>
+  <link rel="icon" type="image/x-icon" href="images/favicon.ico">
 
   <!-- Link CSS -->
   <link rel="stylesheet" href="styles.css">
@@ -18,25 +19,35 @@
 </header>
 
 <nav class="nav-menu">
-  <a href="#about">About</a>
-  <a href="#backend">Backend</a>
-  <a href="#http-methods">HTTP Methods</a>
-  <a href="#simulation">Simulation</a>
-  <a href="#api">API</a>
-  <a href="#endpoints">Endpoints</a>
-  <a href="#first-api">First API</a>
-  <a href="#post">POST Requests</a>
-  <a href="#temporary-storage">Temporary Storage</a>
-  <a href="#postgres">PostgreSQL</a>
-  <a href="#install-postgres">Install PostgreSQL</a>
-  <a href="#database-connection">Database Connection</a>
-  <a href="#database-api">Using Database</a>
-  <a href="#env-security">Environment Variables</a>
-  <a href="#passwords">Passwords</a>
-  <a href="#authentication">Authentication</a>
-  <a href="#tokens">Tokens & Sessions</a>
-  <a href="#frontend">Frontend</a>
-  <a href="#summary">What's Next</a>
+  <div class="nav-header">
+    <span class="nav-label"><i class="fa-solid fa-table-of-contents"></i> Contents</span>
+    <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+      <span class="hamburger-bar"></span>
+      <span class="hamburger-bar"></span>
+      <span class="hamburger-bar"></span>
+    </button>
+  </div>
+  <div class="nav-links">
+    <a href="#about" class="nav-link">About</a>
+    <a href="#backend" class="nav-link">Backend</a>
+    <a href="#http-methods" class="nav-link">HTTP Methods</a>
+    <a href="#simulation" class="nav-link">Simulation</a>
+    <a href="#api" class="nav-link">API</a>
+    <a href="#endpoints" class="nav-link">Endpoints</a>
+    <a href="#first-api" class="nav-link">First API</a>
+    <a href="#post" class="nav-link">POST Requests</a>
+    <a href="#temporary-storage" class="nav-link">Temporary Storage</a>
+    <a href="#postgres" class="nav-link">PostgreSQL</a>
+    <a href="#install-postgres" class="nav-link">Install PostgreSQL</a>
+    <a href="#database-connection" class="nav-link">Database Connection</a>
+    <a href="#database-api" class="nav-link">Using Database</a>
+    <a href="#env-security" class="nav-link">Environment Variables</a>
+    <a href="#passwords" class="nav-link">Passwords</a>
+    <a href="#authentication" class="nav-link">Authentication</a>
+    <a href="#tokens" class="nav-link">Tokens & Sessions</a>
+    <a href="#frontend" class="nav-link">Frontend</a>
+    <a href="#summary" class="nav-link">What's Next</a>
+  </div>
 </nav>
 
 <section>
@@ -67,6 +78,9 @@
     </p>
     <p>
       Also, I believe teaching helps me learn better too.
+    </p>
+    <p>
+      My aim is to update with a new concept weekly, so if you want to follow along, make sure to check back regularly for new content.
     </p>
   </div>
 
@@ -1430,7 +1444,7 @@ SELECT * FROM users;
   </p>
 
   <p>
-    This is important because two different users may sometimes choose the exact same password.
+    This is important because two different users can sometimes have the exact same password.
   </p>
 
   <p>
@@ -2676,11 +2690,11 @@ frontend/index.html
     <h2><i class="fa-solid fa-map-signs"></i> What's Next?</h2>
 
     <p>
-      If you've made it this far — well done. Genuinely.
+      If you've made it this far, well done. Genuinely.
     </p>
 
     <p>
-      Authentication and authorisation are just the beginning. This is the foundation everything else gets built on top of — and there's a lot more to come in this series.
+      Authentication and authorisation are just the beginning. This is the foundation everything else gets built on top of, and there's a lot more to come in this series.
     </p>
 
     <p>
@@ -2692,11 +2706,17 @@ frontend/index.html
     </p>
 
     <ul>
-      <li>Role-based access control (admin vs regular users)</li>
-      <li>Refresh tokens and token revocation</li>
-      <li>Deploying your backend to a cloud server</li>
-      <li>Writing tests for your API</li>
-      <li>Rate limiting and security hardening</li>
+      <li><strong>Refresh tokens & token revocation</strong> — extending the JWT system you just built so sessions can be renewed and invalidated properly</li>
+      <li><strong>Role-based access control</strong> — defining what different users are actually allowed to do once they're logged in</li>
+      <li><strong>Proper error handling</strong> — returning real HTTP status codes and structured error responses instead of plain dictionaries</li>
+      <li><strong>Database relationships</strong> — foreign keys, one-to-many, and many-to-many; how to model real-world data that connects to other data</li>
+      <li><strong>Database migrations</strong> — how to safely change your schema after your database already has data in it (using Alembic)</li>
+      <li><strong>Pagination</strong> — returning large datasets in manageable chunks instead of all at once</li>
+      <li><strong>File uploads</strong> — handling images, documents, and other files in your API</li>
+      <li><strong>Rate limiting & security hardening</strong> — protecting your API from abuse before it goes anywhere near production</li>
+      <li><strong>Logging</strong> — understanding what's actually happening on your server</li>
+      <li><strong>Testing</strong> — writing tests so you can change your code with confidence</li>
+      <li><strong>Deployment</strong> — putting your backend on a real server so the world can use it</li>
     </ul>
 
     <p>
